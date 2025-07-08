@@ -1,0 +1,1 @@
+//for easy management of the application routes
