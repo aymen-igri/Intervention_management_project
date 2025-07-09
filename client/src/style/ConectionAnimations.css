@@ -1,0 +1,44 @@
+/* sign in and email verification animation */
+@keyframes dropdown {
+    0%{
+        transform: translateY(-20%);
+    }
+    100%{
+        transform: translateY(0);
+    }
+}
+
+@keyframes from-right{
+    0%{
+        transform: translateX(20%);
+    }
+    100%{
+        transform: translateX(0);
+    }
+}
+
+@keyframes from-left{
+    0%{
+        transform: translateX(-20%);
+    }
+    100%{
+        transform: translateX(0);
+    }
+}
+
+
+.dropdown{
+    animation: dropdown 0.5s;
+}
+
+.from-right{
+    animation: from-right 0.5s;
+}
+
+.from-left{
+    animation: from-left 0.5s;
+}
+
+.button-problem{
+    transition: background-color 0.2s ease;
+}
