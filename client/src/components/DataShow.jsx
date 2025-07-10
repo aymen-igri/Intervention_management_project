@@ -1,8 +1,8 @@
 export default function DataShow({text,number}){
     return(
-        <div className='flex flex-col itmes-center bg-[#F9FAFB] border-1 border-green-600 rounded-2xl text-green-600 font-bold p-2 z-10 m-4 max-w-xl hover:bg-green-600 hover:text-white hover:translate-y-[-5px] transition-all duration-300 ease-in-out'>
-                    <span>{text}</span>
-                    <span>{number}</span>
+        <div className="bg-white p-4 rounded-lg shadow-md m-4 mt-35 min-w-[200px] hover:translate-y-[-5px] hover:shadow-lg transition-all duration-300 ease-in-out">
+            <h3 className="text-sm text-gray-600 mb-2">{text}</h3>
+            <p className="text-2xl font-bold text-green-600">{number}</p>
         </div>
     )
 }

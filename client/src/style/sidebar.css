@@ -1,0 +1,12 @@
+@keyframes toleft_animation{
+    0%{
+        width: 0;
+    }
+    100%{
+        width: 64px ;
+    }
+}
+
+.toleft_animation{
+    animation: toleft_animation 0.5s;
+}
