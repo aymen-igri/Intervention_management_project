@@ -90,21 +90,21 @@ const pie_char_data = [
 ];
 
 const users = [
-  {name: "aymen" , status: "active"},
-  {name: "aymen" , status: "active"},
-  {name: "aymen" , status: "offline"},
-  {name: "aymen" , status: "active"},
-  {name: "aymen" , status: "offline"},
-  {name: "aymen" , status: "active"},
-  {name: "aymen" , status: "active"},
-  {name: "aymen" , status: "offline"},
-  {name: "aymen" , status: "active"},
-  {name: "aymen" , status: "offline"},
-  {name: "aymen" , status: "active"},
-  {name: "aymen" , status: "active"},
-  {name: "aymen" , status: "offline"},
-  {name: "aymen" , status: "active"},
-  {name: "aymen" , status: "offline"},
+  {name: "aymen" , role:"admin", status: "active"},
+  {name: "aymen" , role:"superviser" , status: "active"},
+  {name: "aymen" , role:"Technician" , status: "offline"},
+  {name: "aymen" , role:"utilisateur" , status: "active"},
+  {name: "aymen" , role:"admin", status: "offline"},
+  {name: "aymen" , role:"Technician" , status: "active"},
+  {name: "aymen" , role:"admin", status: "active"},
+  {name: "aymen" , role:"Technician" , status: "offline"},
+  {name: "aymen" , role:"Technician" , status: "active"},
+  {name: "aymen" , role:"superviser" ,status: "offline"},
+  {name: "aymen" , role:"Technician" , status: "active"},
+  {name: "aymen" , role:"superviser", status: "active"},
+  {name: "aymen" , role:"Technician" , status: "offline"},
+  {name: "aymen" , role:"superviser", status: "active"},
+  {name: "aymen" , role:"Technician" , status: "offline"},
 ]
 
 

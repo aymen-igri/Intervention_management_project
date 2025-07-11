@@ -4,6 +4,7 @@ import SignIn from "../pages/SignIn";
 import ForgetPasswd from "../pages/ForgotPasswd";
 import AdminPages from "../pages/Admin/AdminPage"
 import Dashboard from "../pages/Admin/Pages/Dashboard";
+import UsersPage from "../pages/Admin/Pages/UsersPage";
 
 export const routes = createBrowserRouter([
     {
@@ -32,7 +33,7 @@ export const routes = createBrowserRouter([
             },
             {
                 path: "users",
-                element: <div>users</div>
+                Component: UsersPage
             },
             {
                 path: "tickets",
