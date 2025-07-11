@@ -9,13 +9,13 @@ export default function UsersList({data}){
     const users = data.map((d) => {
     const style =
       d.status === "active"
-        ? "text-green-100 rounded-full px-3 py-1 bg-green-700 text-sm font-medium"
-        : "text-red-100 rounded-full px-3 py-1 bg-red-700 text-sm font-medium"
+        ? "text-green-700 rounded-full px-3 py-1 bg-green-100 text-sm font-medium"
+        : "text-red-700 rounded-full px-3 py-1 bg-red-100 text-sm font-medium"
     const roleStyle = () => {
-      if (d.role === "admin") return "text-amber-100 rounded-full px-3 py-1 bg-amber-700 text-sm font-medium"
-      else if (d.role === "superviser") return "text-blue-100 rounded-full px-3 py-1 bg-blue-700 text-sm font-medium"
-      else if (d.role === "Technician") return "text-green-100 rounded-full px-3 py-1 bg-green-700 text-sm font-medium"
-      else return "text-gray-100 rounded-full px-3 py-1 bg-gray-700 text-sm font-medium"
+      if (d.role === "admin") return "text-amber-700 rounded-full px-3 py-0.5 bg-amber-200 text-sm font-medium"
+      else if (d.role === "superviser") return "text-blue-700 rounded-full px-3 py-0.5 bg-blue-200 text-sm font-medium"
+      else if (d.role === "Technician") return "text-green-700 rounded-full px-3 py-1 bg-green-200 text-sm font-medium"
+      else return "text-gray-700 rounded-full px-3 py-1 bg-gray-100 text-sm font-medium"
     }
     return (
       <div

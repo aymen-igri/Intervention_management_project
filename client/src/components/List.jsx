@@ -2,32 +2,36 @@ import '../style/dashboard.css'
 
 export default function List({data}){
     const list = data.map((d)=>{
-        const style = d.status === "active" ? "text-green-400" : "text-red-400" ;
-        const roleStyle = ()=>{
-            if(d.role === "admin") return "text-amber-400"
-            else if(d.role === "superviser") return "text-blue-700"
-            else if(d.role === "Technician") return "text-green-500"
-            else return "text-gray-500"
+       const style =
+      d.status === "active"
+        ? "text-green-700 rounded-full px-3 py-1 bg-green-100 text-sm font-medium"
+        : "text-red-700 rounded-full px-3 py-1 bg-red-100 text-sm font-medium"
+        const roleStyle = () => {
+        if (d.role === "admin") return "text-amber-700 rounded-full px-3 py-0.5 bg-amber-200 text-sm font-medium"
+        else if (d.role === "superviser") return "text-blue-700 rounded-full px-3 py-0.5 bg-blue-200 text-sm font-medium"
+        else if (d.role === "Technician") return "text-green-700 rounded-full px-3 py-1 bg-green-200 text-sm font-medium"
+        else return "text-gray-700 rounded-full px-3 py-1 bg-gray-100 text-sm font-medium"
         }
         return (
-            <div className="text-black p-2 pl-5 pr-5 flex justify-around w-full hover:bg-gray-200 transition-all duration-300 ease-in-out ">
-                <h2>{d.name}</h2>
-                <h2 className={roleStyle()}>{d.role}</h2>
-                <h2 className={style}>{d.status}</h2>
-            </div>
-        )
-    })
-    return (
-        <div className="bg-white shadow-lg mt-[-4.9%] w-full ml-5 rounded-lg ">
-            <div className=" text-black p-2 pl-5 pr-5 flex justify-around w-full scroll-bar-hide">
-                <h2 >name</h2>
-                <h2>role</h2>
-                <h2 >status</h2>
-            </div>
-            <div className="h-86 overflow-y-auto scroll-bar-hide">
-                {list}
-            </div>
-            
-        </div>
-    )
+              <div className="text-gray-800 p-4 flex items-center justify-between w-full border-b border-gray-100 hover:bg-gray-50 transition-all duration-300 ease-in-out" key={d.id}>
+                <h2 className="w-32 text-left font-medium">{d.name}</h2>
+                <h2 className="w-32 flex justify-center">
+                  <span className={roleStyle()}>{d.role}</span>
+                </h2>
+                <h2 className="w-32 flex justify-center">
+                  <span className={style}>{d.status}</span>
+                </h2>
+              </div>
+            )
+          })
+            return(
+               <div className="bg-white shadow-lg rounded-lg mx-auto w-[97.4%] ml-4 mt-[-5%]">
+                    <div className="text-gray-700 font-semibold flex items-center justify-between w-full p-4  bg-white rounded-t-lg border-b border-gray-200">
+                        <h2 className="w-32 text-left">Name</h2>
+                        <h2 className="w-32 text-center">Role</h2>
+                        <h2 className="w-32 text-center">Status</h2>
+                    </div>
+                    <div className="max-h-81 overflow-y-auto scroll-bar-hide">{list}</div>
+                </div>
+            )
 }

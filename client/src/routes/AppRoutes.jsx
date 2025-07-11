@@ -5,6 +5,7 @@ import ForgetPasswd from "../pages/ForgotPasswd";
 import AdminPages from "../pages/Admin/AdminPage"
 import Dashboard from "../pages/Admin/Pages/Dashboard";
 import UsersPage from "../pages/Admin/Pages/UsersPage";
+import TicketsPage from "../pages/Admin/Pages/TicketsPage";
 
 export const routes = createBrowserRouter([
     {
@@ -37,7 +38,7 @@ export const routes = createBrowserRouter([
             },
             {
                 path: "tickets",
-                element: <div>tickets</div>
+                Component: TicketsPage
             },
             {
                 path: "profile",

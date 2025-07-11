@@ -1,8 +1,11 @@
-import SpicificUser from '../../../components/SpicificUser'
+import { useState } from 'react';
 import UsersList from '../../../components/UsersList'
 import '../../../style/userm.css' 
+import AddUser from '../../../components/AddUser';
 
 export default function UsersPage(){
+
+    const [newUser,setNewUser] = useState(false);
 
     const users = [
         {id:1, name:"aymen", email:"aymen@gmail.com" ,phone:"0000000000" ,role:"admin" ,status:"active" },
@@ -25,29 +28,29 @@ export default function UsersPage(){
                 <div className="absolute left-[1.8%] bottom-[75%] flex flex-row justify-around w-full dropdown">
                     <div className="relative left-0 flex flex-row justify-between w-3xl">
                         <input 
-                        type="number"
-                        min="0"
-                        placeholder='Id' 
-                        className='border border-gray-300 rounded-md p-2 w-full placeholder-gray-400 text-emerald-950 mr-2 focus:outline-2 focus:outline-green-500 transition-colors duration-300 ease-in-out font-medium'
-                        required/>
+                            type="number"
+                            min="0"
+                            placeholder='Id' 
+                            className='border border-gray-300 rounded-md p-2 w-full placeholder-gray-400 text-emerald-950 mr-2 focus:outline-2 focus:outline-green-500 transition-colors duration-300 ease-in-out font-medium'
+                            required/>
                         <input 
-                        type="text" 
-                        min="0"
-                        placeholder='Full name' 
-                        className='border border-gray-300 rounded-md p-2 w-full placeholder-gray-400 text-emerald-950 mr-2 focus:outline-2 focus:outline-green-500 transition-colors duration-300 ease-in-out font-medium'
-                        required/>
+                            type="text" 
+                            min="0"
+                            placeholder='Full name' 
+                            className='border border-gray-300 rounded-md p-2 w-full placeholder-gray-400 text-emerald-950 mr-2 focus:outline-2 focus:outline-green-500 transition-colors duration-300 ease-in-out font-medium'
+                            required/>
                         <input 
-                        type="email" 
-                        min="0"
-                        placeholder='Email' 
-                        className='border border-gray-300 rounded-md p-2 w-full placeholder-gray-400 text-emerald-950 mr-2 focus:outline-2 focus:outline-green-500 transition-colors duration-300 ease-in-out font-medium'
-                        required/>
+                            type="email" 
+                            min="0"
+                            placeholder='Email' 
+                            className='border border-gray-300 rounded-md p-2 w-full placeholder-gray-400 text-emerald-950 mr-2 focus:outline-2 focus:outline-green-500 transition-colors duration-300 ease-in-out font-medium'
+                            required/>
                         <input 
-                        type="" 
-                        min="0"
-                        placeholder='Full name' 
-                        className='border border-gray-300 rounded-md p-2 w-full placeholder-gray-400 text-emerald-950 mr-2 focus:outline-2 focus:outline-green-500 transition-colors duration-300 ease-in-out font-medium'
-                        required/>
+                            type="" 
+                            min="0"
+                            placeholder='Full name' 
+                            className='border border-gray-300 rounded-md p-2 w-full placeholder-gray-400 text-emerald-950 mr-2 focus:outline-2 focus:outline-green-500 transition-colors duration-300 ease-in-out font-medium'
+                            required/>
                         <select placeholder="Role" id="role" className="border border-gray-300 rounded-md p-2 w-full placeholder-gray-400 text-emerald-950 mr-2 focus:outline-2 focus:outline-green-500 transition-colors duration-300 ease-in-out font-medium">
                             <option value="volvo">Administrator</option>
                             <option value="mercedes">Technician</option>
@@ -58,7 +61,7 @@ export default function UsersPage(){
                         <button className="text-green-600 h-11 border shadow-md mr-2 bg-white  hover:text-white hover:bg-green-600 button_problem">
                             Export
                         </button>
-                        <button className="text-white h-11 border shadow-md mr-2 bg-green-600  hover:bg-green-800 button_problem">
+                        <button className="text-white h-11 border shadow-md mr-2 bg-green-600  hover:bg-green-800 button_problem" onClick={()=>{setNewUser(true)}}>
                             Add new user
                         </button>
                     </div>
@@ -67,6 +70,7 @@ export default function UsersPage(){
                 <div className='relative top-20 right-41.5 w-[146%] h-[200%] dropdown'>
                     <UsersList data={users}/>
                 </div>
+                {newUser && <AddUser setNewUser={setNewUser} />}
             </div>
         </>
     )

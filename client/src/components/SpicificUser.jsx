@@ -1,8 +1,8 @@
-export default function SpicificUser({user,setDetails,}){
+export default function SpicificUser({user,setDetails}){
     return(
         <>
-            <div className="z-25 bg-black opacity-40 w-[200%] h-[200%] fixed bottom-[-10%] left-[-10%]"></div>
-            <div className="bg-white z-40 text-black fixed top-0 p-6 flex flex-col items-start rounded-lg font-medium">
+            <div className="z-25 bg-black opacity-40 w-[200%] h-[200%] fixed bottom-[-10%] left-[-10%]" onClick={()=>{setDetails(false)}}></div>
+            <div className="bg-white z-40 text-black fixed top-[20%] left-[35%] p-6 flex justify-center flex-col items-start rounded-lg font-medium">
                 <h3 className="mb-3">Id: {user.id}</h3>
                 <h3 className="mb-3">Name: {user.name}</h3>
                 <h3 className="mb-3">Email: {user.email}</h3>
