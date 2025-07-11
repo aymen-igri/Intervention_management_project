@@ -21,7 +21,7 @@ export default function Profile(){
                         <h4 className='text-amber-700 rounded-full px-3 py-0.5 bg-amber-200 text-sm font-medium mt-3'>{mainUser.role}</h4>
                     </div>
                     <div className='flex justify-between mt-10'>
-                        <h2 className='text-gray-500 font-medium mr-5'>{mainUser.email}</h2>
+                        <h2 className='text-gray-500 font-medium mr-5 '>{mainUser.email}</h2>
                         <h2 className='text-gray-500 font-medium'>Joined at :{mainUser.created}</h2>
                     </div>
                 </div>
