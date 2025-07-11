@@ -75,7 +75,7 @@ const SideBareContent = ()=>{
                             className='mr-2 flex-shrink-0'
                             alt="logo" />
                         <div className=" flex flex-col items-start opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap text-green-600">
-                            <h2 className="block text-l font-bold leading-tight">Dashboard</h2>
+                            <h2 className="block text-l font-bold leading-tight">Profile</h2>
                         </div>
                     </Link>
                 </div>

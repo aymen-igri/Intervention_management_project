@@ -3,7 +3,7 @@ import SpicificUser from "./SpicificUser"
 
 export default function UsersList({data}){
 
-    const [user,setUser] = useState([]);
+    const [user,setUser] = useState(null);
     const [details,setDetails] = useState(false);
 
     const users = data.map((d) => {

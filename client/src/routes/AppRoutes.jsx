@@ -6,6 +6,7 @@ import AdminPages from "../pages/Admin/AdminPage"
 import Dashboard from "../pages/Admin/Pages/Dashboard";
 import UsersPage from "../pages/Admin/Pages/UsersPage";
 import TicketsPage from "../pages/Admin/Pages/TicketsPage";
+import Profile from "../pages/Admin/Pages/Profile";
 
 export const routes = createBrowserRouter([
     {
@@ -42,7 +43,7 @@ export const routes = createBrowserRouter([
             },
             {
                 path: "profile",
-                element: <div>profile</div>
+                Component: Profile
             },
         ]
     }
