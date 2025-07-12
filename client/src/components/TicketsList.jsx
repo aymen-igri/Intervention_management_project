@@ -1,5 +1,6 @@
 import { useState } from "react"
 import SpicificTicket from "./SpicificTicket";
+import AssignTicket from "./AssignTicket";
 
 export default function TicketsList({data,ticketSearched}){
 
@@ -68,7 +69,8 @@ export default function TicketsList({data,ticketSearched}){
                 <h2 className="w-40 text-center">Tech'S name</h2>
             </div>
             <div className="max-h-96 overflow-y-auto scroll-bar-hide">{users}</div>
-                {details && <SpicificTicket ticket={ticket} setDetails={setDetails} />}         
-            </div>
+            {details && <SpicificTicket ticket={ticket} setDetails={setDetails} />}
+        </div>
+            
     )
 }

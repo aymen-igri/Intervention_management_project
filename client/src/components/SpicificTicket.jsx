@@ -1,4 +1,8 @@
+import AssignTicket from "./AssignTicket";
+import { useState } from "react";
+
 export default function SpicificTicket({ticket,setDetails}){
+    const [assign,setAssign] = useState(false);
     return(
         <>
             <div className="z-25 bg-black opacity-40 w-[200%] h-[200%] fixed bottom-[-10%] left-[-10%]" onClick={()=>{setDetails(false)}}></div>
@@ -17,7 +21,7 @@ export default function SpicificTicket({ticket,setDetails}){
                 <h3 className="mb-3">closed at: {ticket.closed}</h3>
                 <h3 className="mb-3">status: {ticket.status}</h3>
                 <div className="mt-7 mr-7">
-                    <button className="bg-green-600 text-white mr-2 ">
+                    <button className="bg-green-600 text-white mr-2 " onClick={()=>{setAssign(true)}}>
                     Assign
                     </button>
                     <button className="bg-red-600 text-white mr-2">
@@ -27,6 +31,7 @@ export default function SpicificTicket({ticket,setDetails}){
                         Close
                     </button>
                 </div>
+                {assign && <AssignTicket setAssign={setAssign} />}        
             </div>
         </>
     )
