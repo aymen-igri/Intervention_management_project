@@ -8,7 +8,7 @@ export default function SpicificTicket({ticket,setDetails}){
             <div className="z-25 bg-black opacity-40 w-[200%] h-[200%] fixed bottom-[-10%] left-[-10%]" onClick={()=>{setDetails(false)}}></div>
             <div className="bg-white z-40 text-black fixed top-[10%] left-[24.5%] p-6 flex justify-center flex-col items-start rounded-lg font-medium max-w-2xl">
                 <h3 className="mb-3">Id: {ticket.id}</h3>
-                <h3 className="mb-3">Title: {ticket.Title}</h3>
+                <h3 className="mb-3">Title: {ticket.title}</h3>
                 <div className="flex justify-start">
                    <h3 className="mb-3">Description: </h3> <p>{ticket.description}</p>
                 </div>

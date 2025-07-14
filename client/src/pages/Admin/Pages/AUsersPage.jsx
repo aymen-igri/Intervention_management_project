@@ -3,7 +3,7 @@ import UsersList from '../../../components/UsersList'
 import '../../../style/userm.css' 
 import AddUser from '../../../components/AddUser';
 
-export default function UsersPage(){
+export default function AUsersPage(){
 
     const [newUser,setNewUser] = useState(false);
     const [searchUser,setSearchUser] = useState({

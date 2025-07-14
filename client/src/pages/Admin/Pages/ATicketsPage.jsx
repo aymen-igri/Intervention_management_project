@@ -2,7 +2,7 @@ import '../../../style/userm.css'
 import TicketsList from '../../../components/TicketsList';
 import { useState } from 'react';
 
-export default function TicketsPage(){
+export default function ATicketsPage(){
 
     const [searchTicket,setSearchTicket] = useState({
         id:"",

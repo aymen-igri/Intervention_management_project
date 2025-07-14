@@ -3,7 +3,7 @@ import user_accicon from '../../../assets/user-account.png'
 import '../../../style/dashboard.css'
 import ModifyInfoMU from '../../../components/ModifyInfoMU';
 
-export default function Profile(){
+export default function AProfilePage(){
     const mainUser = {id:1, name:"aymen", email:"aymen@gmail.com" ,phone:"0000000000" ,role:"admin" ,status:"active", created:"23/07/2014", about:"ghghg nfdkdhg erehfdfdjf ddndfdnfls djfhfa dfhdj dhfdfjdf hdfjdhf fjksffskf dlshlfkfslkjf" };
     const [changes,setChanges] = useState(false);
 

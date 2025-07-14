@@ -109,7 +109,7 @@ const users = [
 
 
 
-export default function Dashboard(){
+export default function ADashboardPage(){
   const navigate = useNavigate();
     return (
         <>
