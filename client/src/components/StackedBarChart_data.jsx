@@ -27,8 +27,8 @@ export default class Example extends PureComponent {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="pv" stackId="a" fill="#8884d8" />
-          <Bar dataKey="uv" stackId="a" fill="#82ca9d" />
+          <Bar dataKey="pv" stackId="a" fill="oklch(52.7% 0.154 150.069)" />
+          <Bar dataKey="uv" stackId="a" fill="oklch(79.2% 0.209 151.711)" />
         </BarChart>
       </ResponsiveContainer>
     );

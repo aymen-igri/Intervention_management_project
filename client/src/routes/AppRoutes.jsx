@@ -11,6 +11,10 @@ import UsersPage from "../pages/User/UserPage";
 import UDashboardPage from "../pages/User/Pages/UDashboardPage"
 import UTicketsPage from "../pages/User/Pages/UTicketsPage"
 import UProfilePage from "../pages/User/Pages/UProfilePage"
+import TechnicianPage from "../pages/Technician/TechnicianPage";
+import TDashboardPage from "../pages/Technician/Pages/TDashboardPage";
+import TTicketsPage from "../pages/Technician/Pages/TTecketsPage";
+import TProfilePage from "../pages/Technician/Pages/TProfilePages";
 
 export const routes = createBrowserRouter([
     {
@@ -65,6 +69,23 @@ export const routes = createBrowserRouter([
             {
                 path: "myprofile",
                 Component: UProfilePage 
+            }
+        ]
+    },{
+        path: "/technician",
+        Component: TechnicianPage,
+        children: [
+            {
+                path: "dashboard",
+                Component: TDashboardPage
+            },
+            {
+                path: "mytickets",
+                Component: TTicketsPage
+            },
+            {
+                path: "myprofile",
+                Component: TProfilePage
             }
         ]
     }
