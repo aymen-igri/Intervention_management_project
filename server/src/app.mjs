@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import router from './routes/Roles.mjs';
+import authRouter from './routes/Auth.mjs'
 
 const app = express();
 
@@ -16,10 +17,15 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Test route
+//Routes
+//Runing the server
 app.get('/', (req, res) => {
   res.json({ message: 'OCP Incident Management API is running!' });
 });
+//authentication
+app.use('/auth',authRouter);
+
+
 
 //Routes
 app.use('/test/roules',router)
