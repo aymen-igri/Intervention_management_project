@@ -2,16 +2,16 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.mjs",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "nodemon ./src/index.mjs",
-    "start": "node ./src/index.mjs"
+    "start:dev": "nodemon ./src/server.mjs",
+    "start": "node ./src/server.mjs"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
     "compression": "^1.8.0",
     "cors": "^2.8.5",
