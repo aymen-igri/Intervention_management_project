@@ -4,7 +4,7 @@ import '../../../style/dashboard.css'
 import ModifyInfoMU from '../../../components/ModifyInfoMU';
 
 export default function TProfilePage(){
-    const mainUser = {id:1, name:"aymen", email:"aymen@gmail.com" ,phone:"0000000000" ,role:"admin" ,status:"active", created:"23/07/2014", about:"ghghg nfdkdhg erehfdfdjf ddndfdnfls djfhfa dfhdj dhfdfjdf hdfjdhf fjksffskf dlshlfkfslkjf" };
+    const mainUser = {id:1, name:"aymen", email:"aymen@gmail.com" ,phone:"0000000000" ,role:"Technician" ,status:"active", created:"23/07/2014", about:"ghghg nfdkdhg erehfdfdjf ddndfdnfls djfhfa dfhdj dhfdfjdf hdfjdhf fjksffskf dlshlfkfslkjf" };
         const [changes,setChanges] = useState(false);
     
         return(
@@ -28,8 +28,8 @@ export default function TProfilePage(){
                         <div className='flex flex-row justify-between'>
                             <h1 className='font-bold text-black flex justify-start text-6xl'>{mainUser.name}</h1>
                         </div>
-                        <div className='w-15'>
-                            <h4 className='text-amber-700 rounded-full px-3 py-0.5 bg-amber-200 text-sm font-medium mt-3'>{mainUser.role}</h4>
+                        <div className='w-24'>
+                            <h4 className='text-green-700 rounded-full px-3 py-0.5 bg-green-200 text-sm font-medium mt-3'>{mainUser.role}</h4>
                         </div>
                         <div className='flex flex-col items-start mt-5'>
                             <h2 className='text-gray-500 font-medium mr-5 '>{mainUser.email}</h2>

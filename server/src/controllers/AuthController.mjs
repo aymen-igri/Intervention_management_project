@@ -17,7 +17,7 @@ export const SignUp = async (req,res)=>{
         const result = await client.query(`INSERT INTO utilisateurs(nom_u,prenom_u,tele_u,role_id_u,statut_u,date_creation,email_u,mot_de_passe_u)
                                            VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING id_u, nom_u, prenom_u;
                                            `,
-                                          [name,familyName,phone,3,"offline",new Date,email,await bcrypt.hash(password,12)]
+                                          [name,familyName,phone,4,"offline",new Date,email,await bcrypt.hash(password,12)]
         )
 
         const token = generateToken();
@@ -52,6 +52,9 @@ export const SignIn = async (req,res) => {
         const result = await client.query(`SELECT * FROM utilisateurs 
                                            Where email_u = $1`,
                                           [email]);
+        if (result.rows.length === 0) {
+            return res.status(401).json({ message: "User doesn't exist" });
+        }
 
         const user = result.rows[0];
         const ok = await bcrypt.compare(password,user.mot_de_passe_u);
@@ -63,11 +66,19 @@ export const SignIn = async (req,res) => {
         await client.query('INSERT INTO tokens(user_id, access_token) VALUES ($1,$2) RETURNING access_token',
                             [result.rows[0].id_u, token]
                           );
-        
+        const role = await client.query('SELECT nom_r FROM roles WHERE id_r = $1',
+                                   [user.role_id_u]
+        );
         res.status(201).json({
             id:user.id_u,
             name: user.nom_u,
             familyName: user.prenom_u,
+            email: user.email_u,
+            tele: user.tele_u,
+            role: role.rows[0].nom_r,
+            status: user.status_u,
+            joined_at : user.date_creation,
+            about: user.about_u,
             token: token
         })
     }catch(e){

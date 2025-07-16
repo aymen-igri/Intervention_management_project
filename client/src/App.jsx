@@ -1,12 +1,13 @@
 import './App.css'
 import { RouterProvider } from 'react-router-dom'
 import { routes } from './routes/AppRoutes'
+import MainUserProvider from './context/MainUser/MainUserProvider'
 function App() {
 
   return (
-    <>
-      <RouterProvider router={routes} />
-    </>
+    <MainUserProvider>
+            <RouterProvider router={routes} />
+    </MainUserProvider>
   )
 }
 
