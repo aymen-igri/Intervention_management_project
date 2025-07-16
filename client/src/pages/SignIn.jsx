@@ -6,6 +6,7 @@ import { useMainUser } from '../context/MainUser/useMainUser';
 import { useNavigate } from 'react-router-dom';
 
 export default function SignIn(){
+
     const {login} = useMainUser();
     const navigate = useNavigate();
     const [connInfo,setConnInfo] = useState({
@@ -28,9 +29,7 @@ export default function SignIn(){
         try{
 
             const response = await api.post('/auth/signin',{email:connInfo.email,password:connInfo.password});
-            
             console.log(response);
-
             if (!response || !response.data) {
                 throw new Error('Invalid response from server');
             }

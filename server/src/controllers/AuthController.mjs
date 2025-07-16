@@ -86,3 +86,53 @@ export const SignIn = async (req,res) => {
         res.status(500).json({ message: `Server error: ${e}` });
     }
 }
+
+export const GetUser = async (req,res) => {
+    const {token} = req.body;
+
+    if(!token){
+        return res.status(400).json({message:"token is messing"});
+    }
+
+    try{
+
+        const result = await client.query(`SELECT
+                                            u.id_u,
+                                            u.nom_u,
+                                            u.prenom_u,
+                                            u.email_u,
+                                            u.tele_u,
+                                            u.statut_u,
+                                            u.date_creation,
+                                            u.about_u,
+                                            r.nom_r AS role,
+                                            t.access_token AS token
+                                            FROM utilisateurs u
+                                            JOIN tokens t   ON t.user_id = u.id_u
+                                            JOIN roles r    ON r.id_r    = u.role_id_u
+                                            WHERE t.access_token = $1 `,
+                                            [token])
+        if (result.rows.length === 0) {
+            return res.status(401).json({ message: "User doesn't exist" });
+        }
+
+        const user = result.rows[0];
+
+        res.status(201).json({
+            id:user.id_u,
+            name: user.nom_u,
+            familyName: user.prenom_u,
+            email: user.email_u,
+            tele: user.tele_u,
+            role: user.name_r,
+            status: user.status_u,
+            joined_at : user.date_creation,
+            about: user.about_u,
+            token: token
+        })
+
+    }catch(err){
+        console.error(err);
+        res.status(500).json({ message: `Server error: ${err}` });
+    }
+}
