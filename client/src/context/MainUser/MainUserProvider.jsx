@@ -1,4 +1,3 @@
-// context/MainUserProvider.js
 import { useState } from "react";
 import MainUserContext from "./MainUserContext";
 

@@ -15,11 +15,12 @@ import TechnicianPage from "../pages/Technician/TechnicianPage";
 import TDashboardPage from "../pages/Technician/Pages/TDashboardPage";
 import TTicketsPage from "../pages/Technician/Pages/TTecketsPage";
 import TProfilePage from "../pages/Technician/Pages/TProfilePages";
+import WelcomePage from "../pages/WelcomePage";
 
 export const routes = createBrowserRouter([
     {
         path: "/",
-        element: <div className="text-black">welcome</div>
+        Component: WelcomePage
     },
     {
         path: "/signup",

@@ -56,18 +56,20 @@ export default function SignIn(){
             }
 
         }catch(err){
+
             console.error('Login error:', err);
-           if (err.response) {
-                // Server responded with error status
+            if (err.response) {
+                    // Server responded with error status
                 const errorMessage = err.response.data?.message || 'Login failed';
                 setError(errorMessage);
             } else if (err.request) {
                 // Request was made but no response received
                 setError('Unable to connect to server. Please check your connection.');
             } else {
-                // Something else happened
+                    // Something else happened
                 setError(err.message || 'An unexpected error occurred');
             }
+            
         } finally {
             setLoading(false);
         }
@@ -101,9 +103,9 @@ export default function SignIn(){
                 disabled={loading}
                 required/>
             <div className="flex items-center justify-between w-full">
-                <button className={`bg-[#24BF5B] text-white px-4 py-2 rounded mb-1 hover:bg-green-700 button-problem font-medium ${loading ? 'opacity-50 cursor-not-allowed' : ''}`} 
+                <button className={`bg-[#24BF5B] text-white px-4 py-2 rounded mb-1 hover:bg-green-700 button-problem font-medium ${loading ? 'opacity-50 cursor-not-allowed' : ''} disabled:bg-gray-200 disabled:text-gray-700`} 
                         onClick={handleLogIn}
-                        disabled={loading}
+                        disabled={loading || Object.values(connInfo).some(v => !v)}
                         >
                     {loading ? "loging in ..." : "log in"}
                 </button>
