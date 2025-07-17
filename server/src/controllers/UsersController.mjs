@@ -6,7 +6,7 @@ export const UpdateData = async (req,res) => {
 
     const {name,familyName,phone,about} = req.body;
     const {id} = req.params;
-    if(!name || !familyName || !phone || !about || !id){
+    if(!name || !familyName || !phone || !id){
         return res.status(400).json({message:"email or phone number is messing"});
     }
 
@@ -22,7 +22,7 @@ export const UpdateData = async (req,res) => {
             id: result.rows[0].id_u,
             name: result.rows[0].nom_u,
             familyName: result.rows[0].prenom_u,
-            tele: result.rows[0].tele_u,
+            phone: result.rows[0].tele_u,
             about: result.rows[0].about_u
         });
 
@@ -33,23 +33,32 @@ export const UpdateData = async (req,res) => {
 
 export const UpdateConn = async (req,res) => {
 
-    const {email,password} = req.body;
-    const {id} = req.params;
-    if(!email,!password){
-        return res.status(400).json({message:"email or phone number is messing"});
+    const { email, password } = req.body;
+    const updates = [];
+    const values = [req.params.id];
+
+    if (email) {
+    updates.push(`email_u=$${values.length + 1}`);
+    values.push(email);
     }
+    if (password) {
+    updates.push(`mot_de_passe_u=$${values.length + 1}`);
+    values.push(await bcrypt.hash(password, 12));
+    }
+
+    if (updates.length === 0) {
+    return res.status(400).json({ message: 'Nothing to update' });
+    }
+
+    const sql = `UPDATE utilisateurs SET ${updates.join(', ')} WHERE id_u=$1 RETURNING *`;
 
     try{
         
-        const result = await client.query(
-            'UPDATE utilisateurs SET email_u=$2, mot_de_passe_u=$3 WHERE id_u=$1 RETURNING *',
-            [id, email, await bcrypt.hash(password,12)]
-        );
+        const { rows } = await client.query(sql, values);
 
         res.status(201).json({
-            id: result.rows[0].id_u,
-            email: result.rows[0].email_u,
-            password: result.rows[0].mot_de_passe_u
+            id: rows[0].id_u,
+            email: rows[0].email_u,
         });
 
     }catch(err){
