@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import router from './routes/Roles.mjs';
 import authRouter from './routes/Auth.mjs'
 import userRouter from './routes/Users.mjs'
+import ticketRouter from './routes/Tickets.mjs'
 
 const app = express();
 
@@ -27,9 +28,10 @@ app.get('/', (req, res) => {
 });
 //authentication
 app.use('/auth',authRouter);
-//User
-app.use('/user',userRouter)
-
+//Users
+app.use('/user',userRouter);
+//Tickets
+app.use('/ticket',ticketRouter);
 
 
 //Fpr testing if the server is working rn by getting all the role

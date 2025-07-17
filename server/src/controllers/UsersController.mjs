@@ -1,6 +1,5 @@
 import { client } from "../config/database.mjs";
 import bcrypt from "bcrypt";
-import crypto from 'crypto';
 
 export const UpdateData = async (req,res) => {
 
