@@ -2,9 +2,10 @@ import { useState } from 'react';
 import user_accicon from '../../../assets/user-account.png' 
 import '../../../style/dashboard.css'
 import ModifyInfoMU from '../../../components/ModifyInfoMU';
+import { useMainUser } from '../../../context/MainUser/useMainUser';
 
 export default function UProfilePage(){
-    const mainUser = {id:1, name:"aymen", email:"aymen@gmail.com" ,phone:"0000000000" ,role:"user" ,status:"active", created:"23/07/2014", about:"ghghg nfdkdhg erehfdfdjf ddndfdnfls djfhfa dfhdj dhfdfjdf hdfjdhf fjksffskf dlshlfkfslkjf" };
+        const {user} = useMainUser();
         const [changes,setChanges] = useState(false);
     
         return(
@@ -26,20 +27,20 @@ export default function UProfilePage(){
                         alt="logo" />
                     <div>
                         <div className='flex flex-row justify-between'>
-                            <h1 className='font-bold text-black flex justify-start text-6xl'>{mainUser.name}</h1>
+                            <h1 className='font-bold text-black flex justify-start text-6xl'>{user.name+" "+user.familyName}</h1>
                         </div>
                         <div className='w-15'>
-                            <h4 className='text-gray-700 rounded-full px-3 py-0.5 bg-gray-200 text-sm font-medium mt-3'>{mainUser.role}</h4>
+                            <h4 className='text-gray-700 rounded-full px-3 py-0.5 bg-gray-200 text-sm font-medium mt-3'>{user.role}</h4>
                         </div>
                         <div className='flex flex-col items-start mt-5'>
-                            <h2 className='text-gray-500 font-medium mr-5 '>{mainUser.email}</h2>
-                            <h2 className='text-gray-500 font-medium'>Joined at :{mainUser.created}</h2>
+                            <h2 className='text-gray-500 font-medium mr-5 '>{user.email}</h2>
+                            <h2 className='text-gray-500 font-medium'>Joined at :{user.joined_at}</h2>
                         </div>
                     </div>
                 </div>
                 <div className='bg-white  items-start shadow-md flex flex-col absolute top-77 right-9 p-3 rounded-lg w-[89.7%] dropdown'>
                     <h2 className='font-bold text-4xl ml-3 text-black'>About</h2>
-                    <p className='text-gray-800 mt-2 ml-3'>{mainUser.about}</p>
+                    <p className='text-gray-800 mt-2 ml-3'>{user.about}</p>
                 </div>
                 {changes && <ModifyInfoMU setChanges={setChanges}/>}
             </>

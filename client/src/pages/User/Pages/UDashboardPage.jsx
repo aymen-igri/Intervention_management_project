@@ -2,6 +2,7 @@ import '../../../style/dashboard.css'
 import DataShow from '../../../components/DataShow'
 import {useNavigate } from 'react-router-dom';
 import Example from '../../../components/StackedBarChart_data';
+import { useMainUser } from '../../../context/MainUser/useMainUser';
 
 const data = [
   {
@@ -83,13 +84,16 @@ const data = [
 
 export default function UDashboardPage(){
     const navigate = useNavigate();
+    const { user, isAuth } = useMainUser(); // ✅ extract what you need
+    console.log(user, isAuth);
+
     return (
         <>
             <div className='z-10 absolute top-[3%] left-[7.2%] flex flex-row items-center justify-between w-[90%] dropdown'>
                 <h1 className='text-2xl text-green-600 font-bold z-10'>Dashboard</h1>
                 <div className='flex items-center justify-center'>
-                    <button className='text-green-600 border shadow-md bg-white button_problem h-13.5 hover:text-white hover:bg-green-600' onClick={()=>navigate("/user/myprofile")}>
-                        AI
+                    <button className='text-green-600 border shadow-md bg-white button_problem h-13.5 hover:text-white hover:bg-green-600' onClick={()=>{navigate("/user/myprofile")}}>
+                      {user.name[0]+user.familyName[0]}
                     </button>
                 </div>
             </div>

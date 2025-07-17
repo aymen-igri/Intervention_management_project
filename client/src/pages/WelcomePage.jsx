@@ -10,6 +10,7 @@ export default function WelcomePage(){
     async function handleUserToken(){
 
         const token = localStorage.getItem('token');
+
         if(!token){
             navigate('/signin')
         }
@@ -24,6 +25,7 @@ export default function WelcomePage(){
 
             login(response.data);
             console.log(response.data);
+
             if (response.data.role === 'administrator') {
                 navigate('/administrator/dashboard');
             } else if (response.data.role === 'technician') {
@@ -31,6 +33,7 @@ export default function WelcomePage(){
             } else {
                 navigate('/user/dashboard');
             }
+        
         }catch(err){
             console.error( err);
             if (err.response) {
@@ -38,9 +41,7 @@ export default function WelcomePage(){
                 console.log(err.response.data?.message || 'Login failed');
             }
         }
-            
-            
-        
+ 
     }
 
     return (
