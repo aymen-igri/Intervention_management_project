@@ -23,12 +23,12 @@ export default class Example extends PureComponent {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis dataKey="mount" />
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="pv" stackId="a" fill="oklch(52.7% 0.154 150.069)" />
-          <Bar dataKey="uv" stackId="a" fill="oklch(79.2% 0.209 151.711)" />
+          <Bar dataKey="opened" stackId="a" fill="oklch(52.7% 0.154 150.069)" />
+          <Bar dataKey="closed" stackId="a" fill="oklch(79.2% 0.209 151.711)" />
         </BarChart>
       </ResponsiveContainer>
     );

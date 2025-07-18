@@ -112,6 +112,7 @@ export const AddTicket = async (req,res) => {
 }
 
 export const UpdateTiket = async (req,res) => {
+
     const {title,description,categorie} = req.body;
     const {id} = req.params;
 
@@ -124,14 +125,83 @@ export const UpdateTiket = async (req,res) => {
         const {rows} = await client.query(`UPDATE tickets SET titre_i=$2, description_i=$3, categorie_i=$4 WHERE id_i=$1
                                            RETURNING *`,
                                            [id,title,description,categorie]);
-
         res.status(201).json({
             id: rows[0].id_i,
             title: rows[0].title_i,
             description: rows[0].description_i,
             categorie: rows[0].categorie_i,
         })
+
     }catch(err){
         res.status(500).json({ message: err.message });
     }
+}
+
+export const GetNumberTicketsByStatus = async (req,res) => {
+
+    const userId = parseInt(req.params.userId,10);
+
+    try{
+
+        const {rows} = await client.query(`SELECT
+                                           COUNT(*)                                AS all_tickets,
+                                           SUM(CASE WHEN etat_i = 'open'       THEN 1 ELSE 0 END) AS open,
+                                           SUM(CASE WHEN etat_i= 'in progress' THEN 1 ELSE 0 END) AS in_progress,
+                                           SUM(CASE WHEN etat_i = 'rejected'   THEN 1 ELSE 0 END) AS rejected,
+                                           SUM(CASE WHEN etat_i = 'closed'     THEN 1 ELSE 0 END) AS closed
+                                           FROM tickets
+                                           WHERE demandeur_id_i = $1;`,
+                                           [userId]);
+        res.status(201).json({
+            allTickets: rows[0].all_tickets,
+            open: rows[0].open,
+            inProgress: rows[0].in_progress,
+            rejected: rows[0].rejected,
+            closed: rows[0].closed
+        })
+
+    }catch(err){
+        
+        res.status(500).json({ message: err.message });
+
+    }
+
+}
+
+export const GetStatisticsForUser = async (req,res) => {
+
+    const userId = parseInt(req.params.userId,10);
+
+    try{
+
+        const {rows} = await client.query(`SELECT
+                                            to_char(date_trunc('month', d.mon), 'Month') AS name,
+                                            COALESCE(SUM(CASE WHEN date_trunc('month', date_creation_i) = d.mon THEN 1 END), 0) AS pv,
+                                            COALESCE(SUM(CASE WHEN date_trunc('month', date_cloture_i)   = d.mon THEN 1 END), 0) AS uv
+                                            FROM generate_series(
+                                                    date_trunc('year', CURRENT_DATE),
+                                                    date_trunc('year', CURRENT_DATE) + INTERVAL '11 months',
+                                                    INTERVAL '1 month'
+                                                ) AS d(mon)
+                                            LEFT JOIN tickets t
+                                                ON (date_trunc('month', t.date_creation_i) = d.mon
+                                                    OR date_trunc('month', t.date_cloture_i) = d.mon)
+                                                AND t.demandeur_id_i = $1          -- <-- specific user
+                                            GROUP BY d.mon
+                                            ORDER BY d.mon;`,
+                                           [userId]);
+        res.status(200).json(
+            rows.map(t => ({
+                mount: t.name,
+                opened: t.pv,
+                closed: t.uv
+            }))
+        );
+
+    }catch(err){
+        
+        res.status(500).json({ message: err.message });
+
+    }
+
 }

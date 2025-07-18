@@ -17,6 +17,7 @@ export default function UTicketsPage(){
     const [tickets,setTickets] = useState([]);
 
     useEffect(() => {
+        
             api.get(`/ticket/getTiketsByUserId/${user.id}`)
                 .then(res => {setTickets((res.data).reverse());console.log(res.data)})
                 .catch(console.error);
