@@ -1,8 +1,10 @@
 import { Router } from "express";
-import { AddTicket, GetTickets, UpdateTiket } from "../controllers/TicketsController.mjs";
+import { AddTicket, GetTicketById, GetTickets, GetTicketsByUserId, UpdateTiket } from "../controllers/TicketsController.mjs";
 
 const router = Router();
 router.get('/getAllTickets',GetTickets);
+router.get('/getTicket/:id',GetTicketById);
+router.get('/getTiketsByUserId/:userId',GetTicketsByUserId);
 router.post('/addTicket/:idUser',AddTicket);
 router.patch('/updateTicket/:id',UpdateTiket);
 

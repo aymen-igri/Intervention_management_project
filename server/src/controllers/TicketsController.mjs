@@ -5,7 +5,6 @@ export const GetTickets = async (req,res) => {
     try{
 
         const {rows} = await client.query(`SELECT * FROM tickets`);
-
         res.status(201).json({
             id: rows[0].id_i,
             title: rows[0].titre_i,
@@ -16,12 +15,65 @@ export const GetTickets = async (req,res) => {
             created_at: rows[0].date_creation_i,
             closed_at: rows[0].date_cloture_i
         })
+
     }catch(err){
         res.status(500).json({ message: err.message });
     }
 
 }
 
+export const GetTicketById = async (req,res) => {
+
+    const id = parseInt(req.params.id,10);
+
+    try{
+
+        const {rows} = await client.query(`SELECT * FROM tickets WHERE id_i=$1`,
+                                          [id]);
+        res.status(201).json({
+            id: rows[0].id_i,
+            title: rows[0].titre_i,
+            description: rows[0].description_i,
+            categorie: rows[0].categorie_i,
+            status: rows[0].etat_i,
+            user_id: rows[0].demandeur_id_i,
+            created_at: rows[0].date_creation_i,
+            closed_at: rows[0].date_cloture_i
+        })
+
+        if (rows.length === 0) {
+            return res.status(404).json({ message: 'Ticket not found' });
+        }
+
+
+    }catch(err){
+        res.status(500).json({ message: err.message });
+    }
+}
+
+export const GetTicketsByUserId = async (req,res) => {
+
+    const userId = parseInt(req.params.userId,10);
+
+    try{
+
+        const {rows} = await client.query(`SELECT * FROM tickets WHERE demandeur_id_i=$1`,
+                                          [userId]);
+        res.status(201).json({
+            id: rows[0].id_i,
+            title: rows[0].titre_i,
+            description: rows[0].description_i,
+            categorie: rows[0].categorie_i,
+            status: rows[0].etat_i,
+            user_id: rows[0].demandeur_id_i,
+            created_at: rows[0].date_creation_i,
+            closed_at: rows[0].date_cloture_i
+        })
+
+    }catch(err){
+        res.status(500).json({ message: err.message });
+    }
+}
 export const AddTicket = async (req,res) => {
 
     const {title,description,categorie} = req.body;
