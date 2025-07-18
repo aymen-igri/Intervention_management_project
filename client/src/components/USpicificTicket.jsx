@@ -1,8 +1,38 @@
-import AssignTicket from "./AssignTicket";
-import { useState } from "react";
+import { useState } from "react"
+import api from "../services/api"
 
 export default function USpicificTicket({ticket,setDetails}){
-    const [assign,setAssign] = useState(false);
+
+    const [updatedTicket,setUpdatedTicket] = useState({
+        title: ticket?.title ?? '',
+        description: ticket?.description ?? '',
+        categorie: ticket?.categorie ?? ''
+    })
+    const [loading,setLoading] = useState(false);
+
+    function handleUpdateTicket(){
+
+        setLoading(true);
+
+        try{
+
+            const response = api.patch(`/ticket/updateTicket/${ticket.id}`,updatedTicket)
+            console.log(response)
+
+        }catch(err){
+
+            console.log(`error at the update: ${err}`);
+
+        }finally{
+            
+            setLoading(false);
+            window.location.reload();
+            setDetails(false);
+
+        }
+       
+    }
+
     return(
         <>
             <div className="z-25 bg-black opacity-40 w-[200%] h-[200%] fixed bottom-[-10%] left-[-10%]" onClick={()=>{setDetails(false)}}></div>
@@ -13,20 +43,25 @@ export default function USpicificTicket({ticket,setDetails}){
                     <input 
                     type="text" 
                     min="0" 
-                    value={ticket.title}
+                    value={updatedTicket.title}
+                    onChange={(e)=>{setUpdatedTicket({...updatedTicket,title:e.target.value})}}
                     className='border border-gray-300 rounded-md p-2 w-full h-10 m-3 placeholder-gray-400 text-emerald-950 focus:outline-2 focus:outline-green-500 transition-colors duration-300 ease-in-out font-medium'
                     required/>
                 </div>
                 <div className="flex flex-row justify-center items-start w-full">
                     <label className="mt-4">Description</label>
                     <textarea 
-                        value={ticket.description}
+                        value={updatedTicket.description}
+                        onChange={(e)=>{setUpdatedTicket({...updatedTicket,description:e.target.value})}}
                         className='border border-gray-300 rounded-md p-2 h-full w-full m-3 placeholder-gray-400 text-emerald-950 focus:outline-2 focus:outline-green-500 transition-colors duration-300 ease-in-out font-medium'
                         required/>
                 </div>
                 <div className="flex flex-row justify-center items-start w-full">
                     <label className="mt-4">Categorie</label>
-                    <select  placeholder="Role" id="role" className="border w-[95%] border-gray-300 rounded-md p-2 h-10 placeholder-gray-400 text-emerald-950 mr-2 m-3  focus:outline-2 focus:outline-green-500 transition-colors duration-300 ease-in-out font-medium">
+                    <select  placeholder="Role" id="role" 
+                        className="border w-[95%] border-gray-300 rounded-md p-2 h-10 placeholder-gray-400 text-emerald-950 mr-2 m-3  focus:outline-2 focus:outline-green-500 transition-colors duration-300 ease-in-out font-medium"
+                        onChange={(e)=>{setUpdatedTicket({...updatedTicket,categorie:e.target.value})}}
+                        >
                         <option value="software">Software</option>
                         <option value="hardware">Hardware</option>
                         <option value="network">Network</option>
@@ -34,18 +69,16 @@ export default function USpicificTicket({ticket,setDetails}){
                     </select>
                 </div>
                 <h3 className="mb-3">Status: {ticket.status}</h3>
-                <h3 className="mb-3">status: {ticket.status}</h3>
-                <h3 className="mb-3">created at: {ticket.created}</h3>
+                <h3 className="mb-3">created at: {ticket.created_at}</h3>
                 <h3 className="mb-3">closed at: {ticket.closed}</h3>
                 <div className="mt-7 mr-7">
-                    <button className="bg-green-600 text-white mr-2 " onClick={()=>{setAssign(true)}}>
-                        Save changes
+                    <button className="bg-green-600 text-white mr-2" onClick={handleUpdateTicket}>
+                        {loading ? "Adding the request" : "Save changes"}
                     </button>
                     <button className="bg-gray-500 text-white mr-2" onClick={()=>{setDetails(false)}}>
                         Close
                     </button>
-                </div>
-                {assign && <AssignTicket setAssign={setAssign} />}        
+                </div>   
             </div>
         </>
     )

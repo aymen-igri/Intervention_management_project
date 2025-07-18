@@ -1,34 +1,28 @@
 import '../../../style/userm.css' 
 import UTicketsList from '../../../components/UTicketsList';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import NewTicket from '../../../components/NewTicket';
+import api from "../../../services/api"
+import {useMainUser} from "../../../context/MainUser/useMainUser"
 
 export default function UTicketsPage(){
     const [newUser,setNewUser] = useState(false);
-
+    const {user} = useMainUser();
     const [searchTicket,setSearchTicket] = useState({
             id:"",
             title:"",
             categorie:"",
-            priority:"",
             status:"",
         })
+    const [tickets,setTickets] = useState([]);
+
+    useEffect(() => {
+            api.get(`/ticket/getTiketsByUserId/${user.id}`)
+                .then(res => {setTickets((res.data).reverse());console.log(res.data)})
+                .catch(console.error);
+    },[user.id])
     
-        const tickets = [
-            {id:"1" , title:"title1", categorie:"hardware",description:"hf fhfhf dfkfak d kfs hd dsds dsfsf dsfsf sdsfsf dsfdsffdsfsdf ddfss sds  ", priority:"low", status:"resolved", user:"aymen", tech:"ahmed"},
-            {id:"2" , title:"title2", categorie:"hardware",description:"hf fhfhf dfkfak d kfs hd dsds dsfsf dsfsf sdsfsf dsfdsffdsfsdf ddfss sds" , priority:"low", status:"rejected", user:"aymen", tech:"ahmed"},
-            {id:"3" , title:"title3", categorie:"software",description:"hf fhfhf dfkfak d kfs hd dsds dsfsf dsfsf sdsfsf dsfdsffdsfsdf ddfss sds" , priority:"madium", status:"closed", user:"aymen", tech:"ahmed"},
-            {id:"4" , title:"title4", categorie:"hardware",description:"hf fhfhf dfkfak d kfs hd dsds dsfsf dsfsf sdsfsf dsfdsffdsfsdf ddfss sds" , priority:"low", status:"in progress", user:"aymen", tech:"ahmed"},
-            {id:"5" , title:"title5", categorie:"hardware",description:"hf fhfhf dfkfak d kfs hd dsds dsfsf dsfsf sdsfsf dsfdsffdsfsdf ddfss sds", priority:"critical", status:"closed", user:"aymen", tech:"ahmed"},
-            {id:"6" , title:"title6", categorie:"others",description:"hf fhfhf dfkfak d kfs hd dsds dsfsf dsfsf sdsfsf dsfdsffdsfsdf ddfss sds", priority:"low", status:"in progress", user:"aymen", tech:"ahmed"},
-            {id:"7" , title:"title7", categorie:"hardware",description:"hf fhfhf dfkfak d kfs hd dsds dsfsf dsfsf sdsfsf dsfdsffdsfsdf ddfss sds", priority:"hight", status:"resolved", user:"aymen", tech:"ahmed"},
-            {id:"8" , title:"title8", categorie:"hardware",description:"hf fhfhf dfkfak d kfs hd dsds dsfsf dsfsf sdsfsf dsfdsffdsfsdf ddfss sds", priority:"low", status:"resolved", user:"aymen", tech:"ahmed"},
-            {id:"9" , title:"title9", categorie:"others",description:"hf fhfhf dfkfak d kfs hd dsds dsfsf dsfsf sdsfsf dsfdsffdsfsdf ddfss sds", priority:"low", status:"resolved", user:"aymen", tech:"ahmed"},
-            {id:"10" , title:"title0", categorie:"hardware",description:"hf fhfhf dfkfak d kfs hd dsds dsfsf dsfsf sdsfsf dsfdsffdsfsdf ddfss sds", priority:"critical", status:"resolved", user:"aymen", tech:"ahmed"},
-            {id:"11" , title:"title1", categorie:"software",description:"hf fhfhf dfkfak d kfs hd dsds dsfsf dsfsf sdsfsf dsfdsffdsfsdf ddfss sds", priority:"low", status:"closed", user:"aymen", tech:"ahmed"},
-            {id:"12" , title:"title2", categorie:"hardware",description:"hf fhfhf dfkfak d kfs hd dsds dsfsf dsfsf sdsfsf dsfdsffdsfsdf ddfss sds", priority:"Mdium", status:"in progress", user:"aymen", tech:"ahmed"},
-    
-        ]
+
         return(
             <>
                 <h1 className='absolute top-[3%] left-[7.2%] dropdown text-2xl text-green-600 font-bold z-10 mb-5'>My tickets</h1>

@@ -124,7 +124,7 @@ export const GetUser = async (req,res) => {
             familyName: user.prenom_u,
             email: user.email_u,
             phone: user.tele_u,
-            role: user.name_r,
+            role: user.role,
             status: user.status_u,
             joined_at : user.date_creation,
             about: user.about_u,

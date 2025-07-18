@@ -62,7 +62,9 @@ export default function SignUp() {
             }
 
         }finally{
+
             setLoading(false);
+            
         }
     }
 

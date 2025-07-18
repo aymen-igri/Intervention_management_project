@@ -59,16 +59,18 @@ export const GetTicketsByUserId = async (req,res) => {
 
         const {rows} = await client.query(`SELECT * FROM tickets WHERE demandeur_id_i=$1`,
                                           [userId]);
-        res.status(201).json({
-            id: rows[0].id_i,
-            title: rows[0].titre_i,
-            description: rows[0].description_i,
-            categorie: rows[0].categorie_i,
-            status: rows[0].etat_i,
-            user_id: rows[0].demandeur_id_i,
-            created_at: rows[0].date_creation_i,
-            closed_at: rows[0].date_cloture_i
-        })
+        res.status(200).json(
+            rows.map(t => ({
+                id: t.id_i,
+                title: t.titre_i,
+                description: t.description_i,
+                categorie: t.categorie_i,
+                status: t.etat_i,
+                user_id: t.demandeur_id_i,
+                created_at: t.date_creation_i,
+                closed_at: t.date_cloture_i
+            }))
+        );
 
     }catch(err){
         res.status(500).json({ message: err.message });

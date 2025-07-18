@@ -5,7 +5,7 @@ export default function UTicketsList({data,ticketSearched}){
 
     const [ticket,setticket] = useState(null);
     const [details,setDetails] = useState(false);
-
+    
     const users = data.map((d) => {
         const statusStyle = () => {
             if (d.status ==="open") return "text-cyan-700 rounded-full px-3 py-0.5 bg-cyan-200 text-sm font-medium"
@@ -22,7 +22,7 @@ export default function UTicketsList({data,ticketSearched}){
         else return "text-gray-700 rounded-full px-3 py-1 bg-gray-100 text-sm font-medium"
         }
 
-        const verificationStatement = (ticketSearched.id === "" || ticketSearched.id === d.id)&&
+        const verificationStatement = (ticketSearched.id === "" || Number(ticketSearched.id) === d.id)&&
                                       (ticketSearched.title === "" || d.title.toLowerCase().startsWith(ticketSearched.title))&&
                                       (ticketSearched.categorie === "" || ticketSearched.categorie === d.categorie)&&
                                       (ticketSearched.priority === "" || ticketSearched.priority === d.priority)&&
@@ -43,7 +43,8 @@ export default function UTicketsList({data,ticketSearched}){
            )
         }
         
-  })
+    })
+
     return(
        <div className="bg-white shadow-lg rounded-lg mx-auto w-[186.7%]">
             <div className="text-gray-700 font-semibold flex items-center justify-between w-full p-4 bg-white rounded-t-lg border-b border-gray-200">
