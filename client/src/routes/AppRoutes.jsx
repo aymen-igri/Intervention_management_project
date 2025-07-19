@@ -13,7 +13,7 @@ import UTicketsPage from "../pages/User/Pages/UTicketsPage"
 import UProfilePage from "../pages/User/Pages/UProfilePage"
 import TechnicianPage from "../pages/Technician/TechnicianPage";
 import TDashboardPage from "../pages/Technician/Pages/TDashboardPage";
-import TTicketsPage from "../pages/Technician/Pages/TTecketsPage";
+import TTicketsPage from "../pages/Technician/Pages/TTicketsPage";
 import TProfilePage from "../pages/Technician/Pages/TProfilePages";
 import WelcomePage from "../pages/WelcomePage";
 

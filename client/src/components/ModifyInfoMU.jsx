@@ -3,11 +3,12 @@ import Info from "./Info";
 import InfoConn from "./InfoConn";
 import { useMainUser } from "../context/MainUser/useMainUser";
 import api from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 export default function ModifyInfoMU({setChanges}){
 
     const [info,setInfo] = useState(true);
-    const {user,setUser} = useMainUser();
+    const {user,setUser,logout} = useMainUser();
     const [infoConn,setInfoConn] = useState(false);
     const [infoData, setInfoData] = useState({
         name: user?.name ?? '',
@@ -19,6 +20,8 @@ export default function ModifyInfoMU({setChanges}){
         email: user?.email ?? '',
         password: user?.password ?? ''
     });
+    const navigate = useNavigate();
+    
 
     async function handleUpdate(){
 
@@ -48,6 +51,11 @@ export default function ModifyInfoMU({setChanges}){
         }
     }
 
+    function handleLogout(){
+        logout();
+        navigate('/signin')
+    }
+
     const buttonStyle1 = info ?"bg-green-600 text-white "  : "bg-gray-100 text-gray-700 hover:bg-gray-200";
     const buttonStyle2 = infoConn ? "bg-green-600 text-white" : "bg-gray-100 text-gray-700  hover:bg-gray-200";
         return(
@@ -70,6 +78,9 @@ export default function ModifyInfoMU({setChanges}){
                         <div className="flex flex-row justify-start mt-4">
                             <button className="bg-green-600 text-white mr-2" onClick={()=>{handleUpdate();setChanges(false)}}>
                                 Save changes
+                            </button>
+                            <button className="bg-red-600 text-white mr-2" onClick={handleLogout}>
+                                log out
                             </button>
                             <button className="bg-gray-500 text-white " onClick={()=>{setChanges(false)}}>
                                 Close

@@ -14,6 +14,7 @@ export default function MainUserProvider({ children }) {
         if (userData) localStorage.setItem('user', JSON.stringify(userData));
         else localStorage.removeItem('user');
     };
+
     const login = (userData) => {
         setUser(userData);
         setIsAuth(true);
@@ -23,6 +24,7 @@ export default function MainUserProvider({ children }) {
         setUser(null);
         setIsAuth(false);
         localStorage.removeItem('token');
+        localStorage.removeItem('user');
     }
 
     const value = {

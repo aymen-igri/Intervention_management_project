@@ -6,6 +6,7 @@ import router from './routes/Roles.mjs';
 import authRouter from './routes/Auth.mjs'
 import userRouter from './routes/Users.mjs'
 import ticketRouter from './routes/Tickets.mjs'
+import commentRouter from './routes/Comments.mjs'
 
 const app = express();
 
@@ -32,6 +33,8 @@ app.use('/auth',authRouter);
 app.use('/user',userRouter);
 //Tickets
 app.use('/ticket',ticketRouter);
+//Comments
+app.use('/comment',commentRouter)
 
 
 //Fpr testing if the server is working rn by getting all the role

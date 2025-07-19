@@ -1,13 +1,19 @@
 import { Router } from "express";
-import { AddTicket, GetNumberTicketsByStatus, GetStatisticsForUser, GetTicketById, GetTickets, GetTicketsByUserId, UpdateTiket } from "../controllers/TicketsController.mjs";
+import { AddTicket, GetNumberTicketsByStatusTech, GetNumberTicketsByStatusUser, GetStatisticsForTech, GetStatisticsForUser, GetTicketById, GetTickets, GetTicketsByTechId, GetTicketsByUserId, updateTicketStatus, UpdateTiket } from "../controllers/TicketsController.mjs";
 
 const router = Router();
+//for user
 router.get('/getAllTickets',GetTickets);
 router.get('/getTicket/:id',GetTicketById);
 router.get('/getTiketsByUserId/:userId',GetTicketsByUserId);
-router.get('/getNumberTiketsByStatus/:userId',GetNumberTicketsByStatus);
+router.get('/getNumberTiketsByStatus/:userId',GetNumberTicketsByStatusUser);
 router.get('/getStatisticsForUser/:userId',GetStatisticsForUser);
 router.post('/addTicket/:idUser',AddTicket);
 router.patch('/updateTicket/:id',UpdateTiket);
+//for tichnician
+router.get('/getTicketsByTechId/:techId',GetTicketsByTechId);
+router.get('/getNumberTicketsByStatusTech/:userId',GetNumberTicketsByStatusTech);
+router.get('/GetStatisticsForTech/:userId',GetStatisticsForTech);
+router.patch('/updateTicketStatus/:id',updateTicketStatus);
 
 export default router;

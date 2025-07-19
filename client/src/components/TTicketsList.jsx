@@ -29,7 +29,7 @@ export default function TicketsList({data,ticketSearched}){
             else return "text-red-700 rounded-full px-3 py-1 bg-red-100 text-sm font-medium"
         }
 
-        const verificationStatement = (ticketSearched.id === "" || ticketSearched.id === d.id)&&
+        const verificationStatement = (ticketSearched.id === "" || Number(ticketSearched.id) === d.id)&&
                                       (ticketSearched.title === "" || d.title.toLowerCase().startsWith(ticketSearched.title))&&
                                       (ticketSearched.categorie === "" || ticketSearched.categorie === d.categorie)&&
                                       (ticketSearched.priority === "" || ticketSearched.priority === d.priority)&&
@@ -49,23 +49,21 @@ export default function TicketsList({data,ticketSearched}){
               <h2 className="w-16 flex justify-center">
                 <span className={statusStyle()}>{d.status}</span>
               </h2>
-              <h2 className="w-40 text-center font-medium">{d.user}</h2>
-              <h2 className="w-40 text-center font-medium">{d.tech}</h2>
+              <h2 className="w-80 text-center font-medium">{d.user_name+" "+d.user_familyName}</h2>
             </div>
            )
         }
         
   })
     return(
-       <div className="bg-white shadow-lg rounded-lg mx-auto w-[97.4%]">
+       <div className="bg-white shadow-lg rounded-lg mx-auto w-[97.4%] max-w-[97.4%]">
             <div className="text-gray-700 font-semibold flex items-center justify-between w-full p-4 bg-white rounded-t-lg border-b border-gray-200">
                 <h2 className="w-16 text-center">ID</h2>
                 <h2 className="w-48 text-center">Title</h2>
                 <h2 className="w-16 text-center">Categorie</h2>
                 <h2 className="w-16 text-center">Priority</h2>
                 <h2 className="w-16 text-center">Status</h2>
-                <h2 className="w-40 text-center">User's name</h2>
-                <h2 className="w-40 text-center">Tech'S name</h2>
+                <h2 className="w-80 text-center">User's name</h2>
             </div>
             <div className="max-h-96 overflow-y-auto scroll-bar-hide">{users}</div>
             {details && <TSpicificTicket ticket={ticket} setDetails={setDetails} />}
