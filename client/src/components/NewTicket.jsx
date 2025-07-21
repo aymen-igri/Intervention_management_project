@@ -63,6 +63,8 @@ export default function NewTicket({setNewUser}){
                 
                     <textarea 
                         placeholder="Description"
+                        max={10}
+                        rows={2}
                         className='border border-gray-300 rounded-md p-2 h-full w-[95%] m-3 placeholder-gray-400 text-emerald-950 focus:outline-2 focus:outline-green-500 transition-colors duration-300 ease-in-out font-medium'
                         onChange={(e)=>{setNewTicket({...newTicket,description:e.target.value})}}
                         required/>

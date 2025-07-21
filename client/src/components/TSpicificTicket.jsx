@@ -1,6 +1,7 @@
 import { useState } from "react";
 import AddComments from "./AddComments";
-import api from "../services/api";
+import api from "../services/api"
+import { format } from "date-fns";
 
 export default function SpicificTicket({ticket,setDetails}){
 
@@ -57,7 +58,7 @@ export default function SpicificTicket({ticket,setDetails}){
                         <option value="rejected">Rejected</option>
                     </select>
                 </div>
-                <h3 className="mb-3">created at: {ticket.created_at}</h3>
+                <h3 className="mb-3">created at: {format(new Date(ticket.created_at), 'dd-MM-yyyy')}</h3>
                 <h3 className="mb-3">closed at: {ticket.closed_at}</h3>
                 <div className="mt-2 mr-7">
                     <button className="bg-green-600 text-white mr-2" onClick={handleUpdateStatus}>

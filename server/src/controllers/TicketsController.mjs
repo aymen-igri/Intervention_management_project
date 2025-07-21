@@ -1,20 +1,42 @@
+import { text } from "express";
 import { client } from "../config/database.mjs";
 
 export const GetTickets = async (req,res) => {
 
     try{
 
-        const {rows} = await client.query(`SELECT * FROM tickets`);
-        res.status(201).json({
-            id: rows[0].id_i,
-            title: rows[0].titre_i,
-            description: rows[0].description_i,
-            categorie: rows[0].categorie_i,
-            status: rows[0].etat_i,
-            user_id: rows[0].demandeur_id_i,
-            created_at: rows[0].date_creation_i,
-            closed_at: rows[0].date_cloture_i
-        })
+        const {rows} = await client.query(`SELECT
+                                            t.id_i               AS id,
+                                            t.titre_i            AS title,
+                                            t.description_i      AS description,
+                                            t.categorie_i        AS categorie,
+                                            t.priorite_i         AS priority,
+                                            t.etat_i             AS status,
+                                            u.nom_u              AS user_name,
+                                            u.prenom_u           AS user_family_name,
+                                           	tech.nom_u			 AS tech_name,
+											tech.prenom_u		 AS tech_family_name,
+                                            t.date_creation_i    AS created_at,
+                                            t.date_cloture_i     AS closed_at
+                                            FROM tickets t
+                                            JOIN utilisateurs u ON u.id_u = t.demandeur_id_i
+											LEFT JOIN utilisateurs tech ON tech.id_u = t.technicien_id_i;`);
+        res.status(200).json(
+            rows.map(t => ({
+                id: t.id,
+                title: t.title,
+                description: t.description,
+                categorie: t.categorie,
+                priority: t.priority,
+                status: t.status,
+                user_name: t.user_name,
+                user_familyName: t.user_family_name,
+                tech_name: t.tech_name,
+                tech_familyName: t.tech_family_name,
+                created_at: t.created_at,
+                closed_at: t.closed_at
+            }))
+        );
 
     }catch(err){
         res.status(500).json({ message: err.message });
@@ -331,6 +353,31 @@ export const updateTicketStatus = async (req,res) => {
             description: rows[0].description_i,
             categorie: rows[0].categorie_i,
             status: rows[0].etat_i
+        })
+
+    }catch(err){
+        res.status(500).json({ message: err.message });
+    }
+}
+
+export const updateTicketPriority = async (req,res) => {
+
+    const {priority} = req.body;
+    const {id} = req.params;
+
+    try{
+
+        const {rows} = await client.query(`UPDATE tickets SET priorite_i=$2 WHERE id_i=$1
+                                          RETURNING *`,
+                                          [id,priority]);
+
+        res.status(201).json({
+            id: rows[0].id_i,
+            title: rows[0].title_i,
+            description: rows[0].description_i,
+            categorie: rows[0].categorie_i,
+            status: rows[0].etat_i,
+            priority: rows[0].priorite_i
         })
 
     }catch(err){

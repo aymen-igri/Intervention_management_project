@@ -21,6 +21,7 @@ export default function ATicketsPage(){
             api.get(`/ticket/getTicketsByTechId/${user.id}`)
                 .then(res => {setTickets((res.data).reverse());console.log(res.data)})
                 .catch(console.error);
+                
     },[user.id])
     
     return(

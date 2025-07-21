@@ -29,7 +29,7 @@ export default function TicketsList({data,ticketSearched}){
             else return "text-red-700 rounded-full px-3 py-1 bg-red-100 text-sm font-medium"
         }
 
-        const verificationStatement = (ticketSearched.id === "" || ticketSearched.id === d.id)&&
+        const verificationStatement = (ticketSearched.id === "" || Number(ticketSearched.id) === d.id)&&
                                       (ticketSearched.title === "" || d.title.toLowerCase().startsWith(ticketSearched.title))&&
                                       (ticketSearched.categorie === "" || ticketSearched.categorie === d.categorie)&&
                                       (ticketSearched.priority === "" || ticketSearched.priority === d.priority)&&
@@ -49,8 +49,8 @@ export default function TicketsList({data,ticketSearched}){
               <h2 className="w-16 flex justify-center">
                 <span className={statusStyle()}>{d.status}</span>
               </h2>
-              <h2 className="w-40 text-center font-medium">{d.user}</h2>
-              <h2 className="w-40 text-center font-medium">{d.tech}</h2>
+              <h2 className="w-40 text-center font-medium">{d.user_name + " " + d.user_familyName}</h2>
+              <h2 className="w-40 text-center font-medium">{d.tech_name + " " + d.tech_familyName}</h2>
             </div>
            )
         }
