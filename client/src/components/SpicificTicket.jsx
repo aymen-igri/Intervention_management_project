@@ -1,7 +1,7 @@
 import AssignTicket from "./AssignTicket";
 import { useState } from "react";
 import SeeComments from "./SeeComments";
-import { format } from 'date-fns'
+import { format} from 'date-fns'
 import api from "../services/api";
 
 export default function SpicificTicket({ticket,setDetails}){
@@ -29,12 +29,32 @@ export default function SpicificTicket({ticket,setDetails}){
         }finally{
 
             setLoading(false);
+            window.location.reload();
             setDetails(false);
 
         }
 
-
     } 
+
+    async function handleCloseTicket(){
+
+        setLoading(true);
+
+        try{
+
+            const response = await api.patch(`/ticket/closeTicket/${ticket.id}`);
+            console.log(response);
+
+        }catch(err){
+            console.log(`error at the close ticket: ${err}`);
+        }finally{
+
+            setLoading(false);
+            window.location.reload();
+            setDetails(false);
+
+        }
+    }
 
     const closeDate = ticket.closed_at ? format(new Date(ticket.closed_at), 'dd-MM-yyyy') : "not yet"
     const techFullName = ticket.tech_name && ticket.tech_familyName ? ticket.tech_name + " " + ticket.tech_familyName : "no technician assigned";
@@ -73,7 +93,7 @@ export default function SpicificTicket({ticket,setDetails}){
                 <h3 className="mb-3">closed at: {closeDate}</h3>
                 <div className="mt-7 mr-7">
                     <button className="bg-green-600 text-white mr-2" onClick={handleUpdatePriority}>
-                        {loading ? "Adding the request" : "Save changes"}
+                        {loading ? "Adding the request..." : "Save changes"}
                     </button>
                     <button className={AssignButtonStyle} onClick={()=>{setAssign(true)}} disabled={AssignDisable}>
                         Assign
@@ -81,14 +101,14 @@ export default function SpicificTicket({ticket,setDetails}){
                     <button className="bg-yellow-300 text-black mr-2 " onClick={()=>{setSeeComments(true)}}>
                         Comments
                     </button>
-                    <button className={ClosedButtonStyle} disabled={ClosedDesable}>
-                        Close ticket
+                    <button className={ClosedButtonStyle} disabled={ClosedDesable} onClick={handleCloseTicket}>
+                        {loading ? "Closing the ticket..." : "Close ticket"}
                     </button>
                     <button className="bg-gray-500 text-white mr-2" onClick={()=>{setDetails(false)}} >
                         Close
                     </button>
                 </div>
-                {assign && <AssignTicket setAssign={setAssign} />}  
+                {assign && <AssignTicket ticket={ticket} setAssign={setAssign} />}  
                 {seeComments && <SeeComments ticket={ticket} setSeeComments={setSeeComments} />}      
             </div>
         </>

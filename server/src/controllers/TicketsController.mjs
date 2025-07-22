@@ -385,3 +385,55 @@ export const updateTicketPriority = async (req,res) => {
     }
 }
 
+export const closeTicket = async (req,res) => {
+
+    const {id} = req.params;
+
+    try{
+
+        const {rows} = await client.query(`UPDATE tickets SET etat_i = 'closed', date_cloture_i = CURRENT_DATE WHERE id_i=$1
+                                          RETURNING *`,
+                                          [id]);
+        res.status(201).json({
+            id: rows[0].id_i,
+            title: rows[0].title_i,
+            description: rows[0].description_i,
+            categorie: rows[0].categorie_i,
+            status: rows[0].etat_i,
+            priority: rows[0].priorite_i,
+            closed_at: rows[0].date_cloture_i
+        })
+
+    }catch(err){
+        res.status(500).json({ message: err.message });
+    }
+
+}
+
+export const assignTick = async (req,res) => {
+
+    const {id} = req.params;
+    const {techId} = req.body;
+
+    try{
+
+        const {rows} = await client.query(`UPDATE tickets SET technicien_id_i=$2 WHERE id_i=$1
+                                          RETURNING *`,
+                                          [id,techId]);
+        res.status(201).json({
+            id: rows[0].id_i,
+            title: rows[0].title_i,
+            description: rows[0].description_i,
+            categorie: rows[0].categorie_i,
+            tech_id: rows[0].technicien_id_i,
+            status: rows[0].etat_i,
+            priority: rows[0].priorite_i,
+            closed_at: rows[0].date_cloture_i
+        })
+
+    }catch(err){
+        res.status(500).json({ message: err.message });
+    }
+
+}
+

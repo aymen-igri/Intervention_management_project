@@ -1,20 +1,36 @@
-import { useState } from "react"
-import List from "./List"
+import { useEffect, useState } from "react"
 import AssignToUser from "./AssignToUser";
+import api from "../services/api";
 
-export default function AssignTicket({setAssign}){
+export default function AssignTicket({ticket,setAssign}){
 
+    const [users,setUsers] = useState([])
     const [selectedUser,setSelectedUser] = useState(null);
     const [disabledB,setDisabledB] = useState(true);
+    const [loading,setLoading] = useState(false);
 
-    const users = [
-                {id:"1",name: "aymen" , role:"admin", status: "active"},
-                {id:"2",name: "aymen" , role:"superviser" , status: "active"},
-                {id:"3",name: "aymen" , role:"Technician" , status: "offline"},
-                {id:"4",name: "aymen" , role:"utilisateur" , status: "active"},
-                {id:"5",name: "aymen" , role:"admin", status: "offline"},
-                {id:"6",name: "aymen" , role:"Technician" , status: "active"},
-                    ]
+    useEffect(()=>{
+        api.get(`/user/getUsersAssign`)
+        .then(res=>{setUsers(res.data);console.log(res.data)})
+        .catch(console.error);
+    },[])
+
+    async function handleAssignTicket() {
+
+        setLoading(true);
+        console.log(selectedUser);
+        console.log(ticket.id);
+
+        try {
+            const response = await api.patch(`/ticket/AssingTicketToTech/${ticket.id}`, { techId: selectedUser.id });
+            console.log(response);
+        } catch (err) {
+            console.log(`error at the assign ticket: ${err}`);
+        } finally {
+            setLoading(false);
+            window.location.reload();
+        }
+    }
 
     return(
         <>
@@ -23,8 +39,8 @@ export default function AssignTicket({setAssign}){
                 <div className="mt-7 mr-7">
                     <AssignToUser data={users} setDesabledB={setDisabledB} setSelectedUser={setSelectedUser}/>
                     <div className="flex mt-4 ml-2">
-                        <button className="bg-green-600 text-white mr-2 disabled:bg-green-200" disabled={disabledB}>
-                            Assign
+                        <button className="bg-green-600 text-white mr-2 disabled:bg-green-200" disabled={disabledB} onClick={handleAssignTicket}>
+                            {loading ? "Assigning..." : "Assign"}
                         </button>
                         <button className="bg-gray-500 text-white mr-2" onClick={()=>{setAssign(false)}}>
                             Back

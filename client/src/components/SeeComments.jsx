@@ -26,7 +26,7 @@ export default function SeeComments({ticket,setSeeComments}){
                     <h6 className={roleUserStyle}>{c.roleUser}</h6>
                     <h6 className="text-start font-thin text-gray-500 text-sm">{format(new Date(ticket.created_at), 'dd-MM-yyyy')}</h6>
                 </div>
-                <p className="text-start mb-1 rounded-2xl max-w-[150%] w-[150%] bg-gray-100 p-2">{c.content}</p>
+                <p className="text-start mb-1 rounded-2xl max-w-[150%] w-[150%] ml-2 bg-gray-100 p-2">{c.content}</p>
             </div>
         )
     })

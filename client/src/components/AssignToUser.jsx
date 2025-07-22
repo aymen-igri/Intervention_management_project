@@ -18,7 +18,7 @@ export default function AssignToUser({data,setDesabledB,setSelectedUser}){
         }
         return (
               <div className={`text-gray-800 p-4 flex items-center justify-between w-full border-b border-gray-100  transition-all duration-300 ease-in-out ${isSelected?"bg-green-200":"hover:bg-gray-50"}`} key={d.id} onClick={()=>{setDesabledB(false);setSelectedId(d.id),setSelectedUser(d)}}>
-                <h2 className="w-32 text-left font-medium">{d.name}</h2>
+                <h2 className="w-32 text-left font-medium">{d.name+" "+d.familyName}</h2>
                 <h2 className="w-32 flex justify-center">
                   <span className={roleStyle()}>{d.role}</span>
                 </h2>
