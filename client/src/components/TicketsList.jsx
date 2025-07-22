@@ -22,10 +22,13 @@ export default function TicketsList({data,ticketSearched}){
         else return "text-gray-700 rounded-full px-3 py-1 bg-gray-100 text-sm font-medium"
         }
 
+        const prioritySelected = d.priority ? d.priority : "not selected"; // Default to "low" if priority is not set
+
         const priorityStyle = () =>{
             if (d.priority === "low") return "text-gray-700 rounded-full px-3 py-0.5 bg-gray-200 text-sm font-medium"
             else if (d.priority === "madium") return "text-blue-700 rounded-full px-3 py-0.5 bg-blue-200 text-sm font-medium"
             else if (d.priority === "hight") return "text-amber-700 rounded-full px-3 py-1 bg-amber-200 text-sm font-medium"
+            else if (d.priority === "critical")return "text-orange-700 rounded-full px-3 py-1 bg-orange-100 text-sm font-medium"
             else return "text-red-700 rounded-full px-3 py-1 bg-red-100 text-sm font-medium"
         }
 
@@ -33,7 +36,11 @@ export default function TicketsList({data,ticketSearched}){
                                       (ticketSearched.title === "" || d.title.toLowerCase().startsWith(ticketSearched.title))&&
                                       (ticketSearched.categorie === "" || ticketSearched.categorie === d.categorie)&&
                                       (ticketSearched.priority === "" || ticketSearched.priority === d.priority)&&
-                                      (ticketSearched.status === "" || ticketSearched.status === d.status); 
+                                      (ticketSearched.status === "" || ticketSearched.status === d.status);
+
+        const techName = d.tech_name ? d.tech_name + " " + d.tech_familyName : "Not assigned";
+        const techNameStyle = d.tech_name ? "w-40 text-center font-medium" : "w-40 text-center font-medium text-red-500 font-medium";
+
         if(verificationStatement){
             return (
             <div
@@ -44,13 +51,13 @@ export default function TicketsList({data,ticketSearched}){
                 <span className={categorieStyle()}>{d.categorie}</span>
               </h2>
               <h2 className="w-16 flex justify-center">
-                <span className={priorityStyle()}>{d.priority}</span>
+                <span className={priorityStyle()}>{prioritySelected}</span>
               </h2>
               <h2 className="w-16 flex justify-center">
                 <span className={statusStyle()}>{d.status}</span>
               </h2>
               <h2 className="w-40 text-center font-medium">{d.user_name + " " + d.user_familyName}</h2>
-              <h2 className="w-40 text-center font-medium">{d.tech_name + " " + d.tech_familyName}</h2>
+              <h2 className={techNameStyle}>{techName}</h2>
             </div>
            )
         }

@@ -1,7 +1,9 @@
 import { Router } from "express";
-import { AddComment } from "../controllers/CommentsController.mjs";
+import { AddComment , GetComment} from "../controllers/CommentsController.mjs";
 
 const router = Router();
+//Admin
+router.get('/getComments/:tickId',GetComment)
 //technician
 router.post('/addComment/:tickId',AddComment);
 
