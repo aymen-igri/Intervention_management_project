@@ -7,23 +7,12 @@ import {useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import api from '../../../services/api';
 
-const pie_char_data = [
-  { name: 'Group A', value: 400 },
-  { name: 'Group B', value: 300 },
-  { name: 'Group C', value: 300 },
-  { name: 'Group D', value: 200 },
-  { name: 'Group E', value: 278 },
-  { name: 'Group F', value: 189 },
-];
-
-
-
-
 export default function ADashboardPage(){
   const navigate = useNavigate();
   const [users,setUsers] = useState([])
   const [cardData,setCartData] = useState({})
   const [line_char_data, setLine_char_data] = useState([])
+  const [pie_char_data,setPie_char_data] = useState([]);
 
   useEffect(()=>{
     api.get(`/user/getAllUsersForDashboard`)
@@ -37,6 +26,17 @@ export default function ADashboardPage(){
     api.get(`/ticket/getStatisticsForAdmin`)
       .then(res => {setLine_char_data((res.data));console.log(res.data)})
       .catch(console.error);
+    
+    api.get(`/ticket/getNumberTicketsByStatusTech`)
+      .then(res => {
+                    const obj = res.data;
+                    const arr = Object.entries(obj).map(([name, value]) => ({
+                      name,
+                      value: Number(value)
+                    }));
+                    setPie_char_data(arr);})
+      .catch(console.error);
+
 
   },[])
 

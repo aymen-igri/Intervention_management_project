@@ -4,7 +4,7 @@ import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, X
 export default function LineChar_data({line_char_data}) {
   return (
     <div className="relative left-12 bottom-20 w-6xl h-50 bg-white p-4 pb-7 rounded-lg shadow-md dropdown">
-      <h3 className="text-lg font-semibold mb-4 text-green-600">Performance Chart</h3>
+      <h3 className="text-lg font-semibold mb-4 text-green-600">Opened/Closed tickets</h3>
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           data={line_char_data}

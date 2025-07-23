@@ -306,6 +306,35 @@ export const GetNumberTicketsByStatusTech = async (req,res) => {
 
 }
 
+export const GetNumberTicketsByStatusAdmin = async (req,res) => {
+    
+    try{
+
+        const {rows} = await client.query(`SELECT
+                                            COALESCE(MAX(CASE WHEN etat_i = 'open'        THEN cnt END), 0) AS open,
+                                            COALESCE(MAX(CASE WHEN etat_i = 'in progress' THEN cnt END), 0) AS in_progress,
+                                            COALESCE(MAX(CASE WHEN etat_i = 'resolved'    THEN cnt END), 0) AS resolved,
+                                            COALESCE(MAX(CASE WHEN etat_i = 'rejected'    THEN cnt END), 0) AS rejected,
+                                            COALESCE(MAX(CASE WHEN etat_i = 'closed'      THEN cnt END), 0) AS closed
+                                            FROM (
+                                            SELECT etat_i, COUNT(*) AS cnt
+                                            FROM tickets
+                                            WHERE date_creation_i >= date_trunc('month', CURRENT_DATE)
+                                                AND date_creation_i <  date_trunc('month', CURRENT_DATE) + INTERVAL '1 month'
+                                            GROUP BY etat_i
+                                            ) s;`)
+        res.status(201).json({
+            open: rows[0].open,
+            Pending: rows[0].in_progress,
+            resolved: rows[0].resolved,
+            rejected: rows[0].rejected,
+            closed: rows[0].closed
+        })
+    }catch(err){
+        res.status(500).json({ message: err.message });
+    }
+}
+
 export const GetStatisticsForTech = async (req,res) => {
 
     const userId = parseInt(req.params.userId,10);
