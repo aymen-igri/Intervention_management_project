@@ -4,81 +4,8 @@ import LineChar_data from '../../../components/LineChar_data';
 import PieChart_data from '../../../components/PieChar_data'
 import List from '../../../components/List';
 import {useNavigate } from 'react-router-dom';
-
-const line_char_data = [
-  {
-    name: 'J',
-    ART: 4000,
-    SLA: 2400,
-    amt: 2400,
-  },
-  {
-    name: 'F',
-    ART: 3000,
-    SLA: 1398,
-    amt: 2210,
-  },
-  {
-    name: 'M',
-    ART: 2000,
-    SLA: 9800,
-    amt: 2290,
-  },
-  {
-    name: 'A',
-    ART: 2780,
-    SLA: 3908,
-    amt: 2000,
-  },
-  {
-    name: 'M',
-    ART: 1890,
-    SLA: 4800,
-    amt: 2181,
-  },
-  {
-    name: 'J',
-    ART: 2390,
-    SLA: 3800,
-    amt: 2500,
-  },
-  {
-    name: 'J',
-    ART: 3490,
-    SLA: 4300,
-    amt: 2100,
-  },
-  {
-    name: 'A',
-    ART: 3490,
-    SLA: 4300,
-    amt: 2100,
-  },
-  {
-    name: 'S',
-    ART: 3490,
-    SLA: 4300,
-    amt: 2100,
-  },
-  {
-    name: 'O',
-    ART: 3490,
-    SLA: 4300,
-    amt: 2100,
-  },
-  {
-    name: 'N',
-    ART: 3490,
-    SLA: 4300,
-    amt: 2100,
-  },
-  {
-    name: 'D',
-    ART: 3490,
-    SLA: 4300,
-    amt: 2100,
-  },
-];
+import { useEffect, useState } from 'react';
+import api from '../../../services/api';
 
 const pie_char_data = [
   { name: 'Group A', value: 400 },
@@ -89,28 +16,30 @@ const pie_char_data = [
   { name: 'Group F', value: 189 },
 ];
 
-const users = [
-  {name: "aymen" , role:"admin", status: "active"},
-  {name: "aymen" , role:"superviser" , status: "active"},
-  {name: "aymen" , role:"Technician" , status: "offline"},
-  {name: "aymen" , role:"utilisateur" , status: "active"},
-  {name: "aymen" , role:"admin", status: "offline"},
-  {name: "aymen" , role:"Technician" , status: "active"},
-  {name: "aymen" , role:"admin", status: "active"},
-  {name: "aymen" , role:"Technician" , status: "offline"},
-  {name: "aymen" , role:"Technician" , status: "active"},
-  {name: "aymen" , role:"superviser" ,status: "offline"},
-  {name: "aymen" , role:"Technician" , status: "active"},
-  {name: "aymen" , role:"superviser", status: "active"},
-  {name: "aymen" , role:"Technician" , status: "offline"},
-  {name: "aymen" , role:"superviser", status: "active"},
-  {name: "aymen" , role:"Technician" , status: "offline"},
-]
 
 
 
 export default function ADashboardPage(){
   const navigate = useNavigate();
+  const [users,setUsers] = useState([])
+  const [cardData,setCartData] = useState({})
+  const [line_char_data, setLine_char_data] = useState([])
+
+  useEffect(()=>{
+    api.get(`/user/getAllUsersForDashboard`)
+      .then(res=>{setUsers(res.data.reverse());console.log(res.data)})
+      .catch(console.error);
+
+    api.get(`/ticket/getStatisticForCards`)
+      .then(res => {setCartData((res.data));console.log(res.data)})
+      .catch(console.error);
+
+    api.get(`/ticket/getStatisticsForAdmin`)
+      .then(res => {setLine_char_data((res.data));console.log(res.data)})
+      .catch(console.error);
+
+  },[])
+
     return (
         <>
             <div className='z-10 absolute top-[3%] left-[7.2%] flex flex-row items-center justify-between w-[90%] dropdown'>
@@ -122,11 +51,11 @@ export default function ADashboardPage(){
                 </div>
             </div>
             <div className='relative bottom-20 left-[2.7%] flex justify-items-between dropdown'>
-                <DataShow text="Total users" number="50" />
-                <DataShow text="Total Interventions" number="50" />
-                <DataShow text="Average Response Time" number="50" />
-                <DataShow text="SLA Compliance Rate" number="50" />
-                <DataShow text="Top Non-Compliant Categories" number="50" />
+                <DataShow text="Total users" number={cardData.totalUsers} />
+                <DataShow text="Total Incidents" number={cardData.totalIncidents} />
+                <DataShow text="Average Response Time" number={cardData.avgResponse + "min"} />
+                <DataShow text="SLA Compliance Rate" number={cardData.slaComplianceRate + "%"} />
+                <DataShow text="Top Non-Compliant Categories" number={cardData.worstCategory} />
             </div>
             <LineChar_data line_char_data={line_char_data} />
             <div className='flex justify-between relative left-4.5 dropdown'>

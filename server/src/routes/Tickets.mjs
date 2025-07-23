@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { AddTicket, assignTick, closeTicket, GetNumberTicketsByStatusTech, GetNumberTicketsByStatusUser, GetStatisticsForTech, GetStatisticsForUser, GetTicketById, GetTickets, GetTicketsByTechId, GetTicketsByUserId, updateTicketPriority, updateTicketStatus, UpdateTiket } from "../controllers/TicketsController.mjs";
+import { AddTicket, assignTick, closeTicket, getCartStatisticsForAdmin, GetNumberTicketsByStatusTech, GetNumberTicketsByStatusUser, GetStatisticsForAdmin, GetStatisticsForTech, GetStatisticsForUser, GetTicketById, GetTickets, GetTicketsByTechId, GetTicketsByUserId, updateTicketPriority, updateTicketStatus, UpdateTiket } from "../controllers/TicketsController.mjs";
 
 const router = Router();
 //for user
@@ -16,6 +16,8 @@ router.get('/getNumberTicketsByStatusTech/:userId',GetNumberTicketsByStatusTech)
 router.get('/GetStatisticsForTech/:userId',GetStatisticsForTech);
 router.patch('/updateTicketStatus/:id',updateTicketStatus);
 //for admin
+router.get('/getStatisticForCards',getCartStatisticsForAdmin);
+router.get('/getStatisticsForAdmin',GetStatisticsForAdmin);
 router.patch('/updatePriority/:id',updateTicketPriority);
 router.patch('/closeTicket/:id',closeTicket);
 router.patch('/AssingTicketToTech/:id',assignTick)

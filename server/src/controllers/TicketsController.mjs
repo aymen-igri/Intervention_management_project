@@ -174,6 +174,41 @@ export const GetNumberTicketsByStatusUser = async (req,res) => {
 
 }
 
+export const getCartStatisticsForAdmin = async (req,res) => {
+
+    try{
+
+        const {rows} = await client.query(`SELECT
+                                            (SELECT COUNT(DISTINCT id_u) FROM utilisateurs) AS total_users,
+                                            (SELECT COUNT(*) FROM tickets) AS total_incidents,
+                                            ROUND(AVG(date_cloture_i - date_creation_i)::NUMERIC * 24 * 60, 1) AS avg_response,
+                                            ROUND(
+                                                (COUNT(*) FILTER (WHERE date_cloture_i IS NOT NULL AND date_cloture_i <= date_creation_i + 1)) * 100.0
+                                                / NULLIF(COUNT(*) FILTER (WHERE date_cloture_i IS NOT NULL), 0),
+                                                1
+                                            ) AS sla_compliance_rate,
+                                            (
+                                                SELECT categorie_i
+                                                FROM tickets
+                                                WHERE date_cloture_i IS NOT NULL AND date_cloture_i > date_creation_i + 3
+                                                GROUP BY categorie_i
+                                                ORDER BY COUNT(*) DESC
+                                                LIMIT 1
+                                            ) AS worst_category
+                                            FROM tickets
+                                            WHERE date_cloture_i IS NOT NULL;`)
+        res.status(201).json({
+            totalUsers: rows[0].total_users,
+            totalIncidents: rows[0].total_incidents,
+            avgResponse: rows[0].avg_response,
+            slaComplianceRate: rows[0].sla_compliance_rate,
+            worstCategory: rows[0].worst_category
+        })
+    }catch(err){
+        res.status(500).json({ message: err.message });
+    }
+}
+
 export const GetStatisticsForUser = async (req,res) => {
 
     const userId = parseInt(req.params.userId,10);
@@ -196,6 +231,38 @@ export const GetStatisticsForUser = async (req,res) => {
                                             GROUP BY d.mon
                                             ORDER BY d.mon;`,
                                            [userId]);
+        res.status(200).json(
+            rows.map(t => ({
+                mount: t.name,
+                opened: t.pv,
+                closed: t.uv
+            }))
+        );
+
+    }catch(err){  
+        res.status(500).json({ message: err.message });
+    }
+
+}
+
+export const GetStatisticsForAdmin = async (req,res) => {
+
+    try{
+
+        const {rows} = await client.query(`SELECT
+                                            to_char(date_trunc('month', d.mon), 'Month') AS name,
+                                            COALESCE(SUM(CASE WHEN date_trunc('month', date_creation_i) = d.mon THEN 1 END), 0) AS pv,
+                                            COALESCE(SUM(CASE WHEN date_trunc('month', date_cloture_i)   = d.mon THEN 1 END), 0) AS uv
+                                            FROM generate_series(
+                                                    date_trunc('year', CURRENT_DATE),
+                                                    date_trunc('year', CURRENT_DATE) + INTERVAL '11 months',
+                                                    INTERVAL '1 month'
+                                                ) AS d(mon)
+                                            LEFT JOIN tickets t
+                                                ON (date_trunc('month', t.date_creation_i) = d.mon
+                                                    OR date_trunc('month', t.date_cloture_i) = d.mon)
+                                            GROUP BY d.mon
+                                            ORDER BY d.mon;`);
         res.status(200).json(
             rows.map(t => ({
                 mount: t.name,

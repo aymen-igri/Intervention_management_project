@@ -16,7 +16,7 @@ export default function LineChar_data({line_char_data}) {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
-          <XAxis dataKey="name" stroke="#666" />
+          <XAxis dataKey="mount" stroke="#666" />
           <YAxis yAxisId="left" stroke="#666" />
           <YAxis yAxisId="right" orientation="right" stroke="#666" />
           <Tooltip 
@@ -30,7 +30,7 @@ export default function LineChar_data({line_char_data}) {
           <Line 
             yAxisId="left" 
             type="monotone" 
-            dataKey="ART" 
+            dataKey="opened" 
             stroke="#16a34a" 
             strokeWidth={2}
             activeDot={{ r: 6 }} 
@@ -38,7 +38,7 @@ export default function LineChar_data({line_char_data}) {
           <Line 
             yAxisId="right" 
             type="monotone" 
-            dataKey="SLA" 
+            dataKey="closed" 
             stroke="#047857" 
             strokeWidth={2}
           />
