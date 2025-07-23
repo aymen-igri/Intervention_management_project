@@ -46,9 +46,12 @@ export default function SignIn(){
             login(userData);
 
 
-            if (userData.role === 'administrator') {
+            if(response.data.status === 'banned'){
+                navigate('/banned');
+            }
+            else if (response.data.role === 'administrator') {
                 navigate('/administrator/dashboard');
-            } else if (userData.role === 'technician') {
+            } else if (response.data.role === 'technician') {
                 navigate('/technician/dashboard');
             } else {
                 navigate('/user/dashboard');

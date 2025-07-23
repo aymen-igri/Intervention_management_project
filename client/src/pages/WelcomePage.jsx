@@ -26,7 +26,10 @@ export default function WelcomePage(){
             login(response.data);
             console.log(response.data);
 
-            if (response.data.role === 'administrator') {
+            if(response.data.status === 'banned'){
+                navigate('/banned');
+            }
+            else if (response.data.role === 'administrator') {
                 navigate('/administrator/dashboard');
             } else if (response.data.role === 'technician') {
                 navigate('/technician/dashboard');

@@ -16,6 +16,7 @@ import TDashboardPage from "../pages/Technician/Pages/TDashboardPage";
 import TTicketsPage from "../pages/Technician/Pages/TTicketsPage";
 import TProfilePage from "../pages/Technician/Pages/TProfilePages";
 import WelcomePage from "../pages/WelcomePage";
+import BannedUserPage from "../pages/BannedUserPage";
 
 export const routes = createBrowserRouter([
     {
@@ -33,6 +34,10 @@ export const routes = createBrowserRouter([
     {
         path: "/forgot-password",
         Component: ForgetPasswd
+    },
+    {
+        path: "/banned",
+        Component: BannedUserPage
     },
     {
         path: "/administrator",

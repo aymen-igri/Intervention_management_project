@@ -76,7 +76,7 @@ export const SignIn = async (req,res) => {
             email: user.email_u,
             phone: user.tele_u,
             role: role.rows[0].nom_r,
-            status: user.status_u,
+            status: user.statut_u,
             joined_at : user.date_creation,
             about: user.about_u,
             token: token
@@ -125,7 +125,7 @@ export const GetUser = async (req,res) => {
             email: user.email_u,
             phone: user.tele_u,
             role: user.role,
-            status: user.status_u,
+            status: user.statut_u,
             joined_at : user.date_creation,
             about: user.about_u,
             token: token

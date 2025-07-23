@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import UsersList from '../../../components/UsersList'
 import '../../../style/userm.css' 
 import AddUser from '../../../components/AddUser';
+import api from '../../../services/api';
 
 export default function AUsersPage(){
 
     const [newUser,setNewUser] = useState(false);
+    const [users,setUsers] = useState([])
     const [searchUser,setSearchUser] = useState({
         id:"",
         name:"",
@@ -14,15 +16,12 @@ export default function AUsersPage(){
         status:""
     });
 
-    const users = [
-        {id:"1", name:"aymen", email:"aymen@gmail.com" ,phone:"0000000000" ,role:"admin" ,status:"active" },
-        {id:"2", name:"aymen", email:"aymen@gmail.com" ,phone:"0000000000" ,role:"admin" ,status:"active" },
-        {id:"3", name:"aymen", email:"aymen@gmail.com" ,phone:"0000000000" ,role:"user" ,status:"active" },
-        {id:"4", name:"aymen", email:"aymen@gmail.com" ,phone:"0000000000" ,role:"admin" ,status:"active" },
-        {id:"5", name:"aymen", email:"aymen@gmail.com" ,phone:"0000000000" ,role:"user" ,status:"offline" },
-        {id:"6", name:"aymen", email:"aymen@gmail.com" ,phone:"0000000000" ,role:"technician" ,status:"active" },
-        {id:"7", name:"aymen", email:"aymen@gmail.com" ,phone:"0000000000" ,role:"user" ,status:"offline" },
-    ]
+    useEffect(()=>{
+        api.get(`/user/getAllUsers`)
+        .then(res=>{setUsers(res.data.reverse());console.log(res.data)})
+        .catch(console.error);
+    },[])
+
     return(
         <>
             <h1 className='absolute top-[3%] left-[7.2%] dropdown text-2xl text-green-600 font-bold z-10 mb-5'>Users management</h1>
@@ -52,7 +51,7 @@ export default function AUsersPage(){
                             required/>
                         <select placeholder="Role" id="role" className="border border-gray-300 rounded-md p-2 w-full placeholder-gray-400 text-emerald-950 mr-2 focus:outline-2 focus:outline-green-500 transition-colors duration-300 ease-in-out font-medium" onChange={(e)=>{setSearchUser({...searchUser,role:e.target.value})}}>
                             <option value="">All the roles</option>
-                            <option value="admin">Administrator</option>
+                            <option value="administrator">Administrator</option>
                             <option value="technician">Technician</option>
                             <option value="user">User</option>
                         </select>
