@@ -1,0 +1,34 @@
+@keyframes BannedAnimation {
+    0%{
+        hight: 1000px;
+        width: 1000px;
+    }
+    50%{
+        hight: 350px;
+        width: 350px;
+    }
+    100%{
+        hight: 500px;
+        width: 500px
+    }
+}
+
+@keyframes MessageAnimation {
+    0%{
+        opacity: 0;
+    }
+    50%{
+        opacity: 0.5
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+.BannedAnimation{
+    animation: BannedAnimation 0.5s;
+}
+
+.MessageAnimation{
+    animation: MessageAnimation 0.5s;
+}
