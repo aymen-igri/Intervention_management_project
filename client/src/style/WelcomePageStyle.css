@@ -1,0 +1,25 @@
+@keyframes tobottom_animation{
+    0%{
+        height: 0;
+    }   
+    100%{
+        height: 55px ;
+    }
+}
+
+@keyframes dropdown_animation{
+    0%{
+        transform: translateY(-40px);
+    }
+    100%{
+        transform: translateY(0);
+    }
+}
+
+.tobottom_animation{
+    animation: tobottom_animation 0.5s;
+}
+
+.dropdown_animation{
+    animation: dropdown_animation 0.5s;
+}

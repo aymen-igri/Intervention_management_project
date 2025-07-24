@@ -1,5 +1,5 @@
 import '../../style/dashboard.css'
-import logo from '../../assets/app logo without name.png'
+import logo from '../../assets/OCP Group.png'
 import Dashicon from '../../assets/analysis.png'
 import ticketicon from '../../assets/ticket.png'
 import user_accicon from '../../assets/user-account.png' 

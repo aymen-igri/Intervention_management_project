@@ -1,4 +1,4 @@
-import BannImage from '../../public/Banned-removebg-preview.png'
+import BannImage from '../assets/Banned-removebg-preview.png'
 import '../style/BannedStyle.css'
 import { Link } from 'react-router-dom'
 
