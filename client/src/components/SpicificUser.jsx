@@ -49,13 +49,13 @@ export default function SpicificUser({user,setDetails}){
                 </div>
                 <h3 className="mb-3">status: {user.status}</h3>
                 <div className="mt-7 mr-7">
-                    <button className="bg-green-600 text-white mr-2" onClick={handleUpdateRole}>
+                    <button className="bg-green-600 text-white mr-2 rounded-lg hover:bg-green-400 transition-colors duration-150 ease-in-out " onClick={handleUpdateRole}>
                     Keep changes
                     </button>
-                    <button className="bg-red-600 text-white mr-2" onClick={handleBanUser}>
+                    <button className="bg-red-600 text-white mr-2 rounded-lg hover:bg-red-400 transition-colors duration-150 ease-in-out" onClick={handleBanUser}>
                         Ban
                     </button>
-                    <button className="bg-gray-500 text-white mr-2" onClick={()=>{setDetails(false)}}>
+                    <button className="bg-gray-500 text-white mr-2 rounded-lg hover:bg-gray-400 transition-colors duration-150 ease-in-out" onClick={()=>{setDetails(false)}}>
                         Close
                     </button>
                 </div>

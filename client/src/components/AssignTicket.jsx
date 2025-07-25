@@ -39,10 +39,10 @@ export default function AssignTicket({ticket,setAssign}){
                 <div className="mt-7 mr-7">
                     <AssignToUser data={users} setDesabledB={setDisabledB} setSelectedUser={setSelectedUser}/>
                     <div className="flex mt-4 ml-2">
-                        <button className="bg-green-600 text-white mr-2 disabled:bg-green-200" disabled={disabledB} onClick={handleAssignTicket}>
+                        <button className="bg-green-600 text-white mr-2 rounded-lg hover:bg-green-400 transition-colors duration-100 ease-in-out" disabled={disabledB} onClick={handleAssignTicket}>
                             {loading ? "Assigning..." : "Assign"}
                         </button>
-                        <button className="bg-gray-500 text-white mr-2" onClick={()=>{setAssign(false)}}>
+                        <button className="bg-gray-600 text-white mr-2 rounded-lg hover:bg-gray-400 transition-colors duration-100 ease-in-out" onClick={()=>{setAssign(false)}}>
                             Back
                         </button>
                     </div>

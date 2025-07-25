@@ -119,10 +119,10 @@ export default function WelcomePage(){
                             <p className="text-start text-gray-500">Phone: +212606060606</p>
                         </div>
                         <div className="flex flex-row justify-end mt-3 mr-9">
-                            <Facebook color="green" className="mr-3" />
-                            <Instagram color="green" className="mr-3" />
-                            <Linkedin color="green" className="mr-3" />
-                            <Twitter color="green" />
+                            <Facebook color="green" className="mr-3" onClick={() => window.open('https://www.facebook.com/OCPGroupINT', '_blank')}/>
+                            <Instagram color="green" className="mr-3" onClick={() => window.open('https://www.instagram.com/ocpgroup/', '_blank')}/>
+                            <Linkedin color="green" className="mr-3" onClick={() => window.open('https://www.linkedin.com/company/ocpgroup/posts/?feedView=all', '_blank')} />
+                            <Twitter color="green" onClick={() => window.open('https://x.com/OCPGroup?t=q76MNl0scSfdEgY-mgn_iQ&s=08', '_blank')}/>
 
                         </div>
                     </div>

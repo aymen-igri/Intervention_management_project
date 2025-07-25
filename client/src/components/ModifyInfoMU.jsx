@@ -56,8 +56,8 @@ export default function ModifyInfoMU({setChanges}){
         navigate('/signin')
     }
 
-    const buttonStyle1 = info ?"bg-green-600 text-white "  : "bg-gray-100 text-gray-700 hover:bg-gray-200";
-    const buttonStyle2 = infoConn ? "bg-green-600 text-white" : "bg-gray-100 text-gray-700  hover:bg-gray-200";
+    const buttonStyle1 = info ?"bg-green-600 text-white rounded-lg hover:bg-green-400 transition-colors duration-100 ease-in-out"  : "bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors duration-100 ease-in-out";
+    const buttonStyle2 = infoConn ? "bg-green-600 text-white rounded-lg hover:bg-green-400 transition-colors duration-100 ease-in-out" : "bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors duration-100 ease-in-out";
         return(
             <>
                 <div className="z-25 bg-black opacity-40 w-[200%] h-[200%] fixed bottom-[-10%] left-[-10%]" onClick={()=>{setChanges(false)}}></div>
@@ -76,13 +76,13 @@ export default function ModifyInfoMU({setChanges}){
                             {infoConn && <InfoConn infoConn={infoConn} infoConnData={infoConnData} setInfoConnData={setInfoConnData} /> }
                         </div>
                         <div className="flex flex-row justify-start mt-4">
-                            <button className="bg-green-600 text-white mr-2" onClick={()=>{handleUpdate();setChanges(false)}}>
+                            <button className="bg-green-600 text-white mr-2 rounded-lg hover:bg-green-400 transition-colors duration-100 ease-in-out" onClick={()=>{handleUpdate();setChanges(false)}}>
                                 Save changes
                             </button>
-                            <button className="bg-red-600 text-white mr-2" onClick={handleLogout}>
+                            <button className="bg-red-600 text-white mr-2 rounded-lg hover:bg-red-400 transition-colors duration-100 ease-in-out" onClick={handleLogout}>
                                 log out
                             </button>
-                            <button className="bg-gray-500 text-white " onClick={()=>{setChanges(false)}}>
+                            <button className="bg-gray-500 text-white rounded-lg hover:bg-gray-400 transition-colors duration-100 ease-in-out" onClick={()=>{setChanges(false)}}>
                                 Close
                             </button>
                         </div>

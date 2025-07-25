@@ -2,6 +2,10 @@ import '../../../style/userm.css'
 import TicketsList from '../../../components/TicketsList';
 import { useEffect, useState } from 'react';
 import api from '../../../services/api';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable'
+import OCPLogo from '../../../assets/images-removebg-preview.png'
+
 
 export default function ATicketsPage(){
 
@@ -21,6 +25,71 @@ export default function ATicketsPage(){
         .catch(console.error);
 
     },[])
+
+    const exportToPDF = () => {
+            const doc = new jsPDF();
+            const currentDate = new Date().toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+    
+            try {
+                    doc.addImage(OCPLogo, 'PNG', 15, 10, 40, 12); // x, y, width, height
+            } catch (error) {
+                    console.log('Logo could not be loaded:',error);
+            }
+    
+            doc.setFontSize(18);
+            doc.setTextColor(0, 128, 64);
+            doc.text("Tickets List", 105, 30, null, null, 'center');
+    
+            // Define columns and rows for the table
+            const tableColumn = ["ID", "Title", "Categorie", "priority", "Status"];
+            const tableRows = [];
+    
+            tickets.forEach(t => {
+                const userData = [
+                    t.id || '',
+                    t.title || '',
+                    t.categorie || '',
+                    t.priority || '',
+                    t.status || ''
+                ];
+                tableRows.push(userData);
+            });
+    
+            // Generate the professional table
+            autoTable(doc, {
+                head: [tableColumn],
+                body: tableRows,
+                startY: 40,
+                theme: 'grid',
+                styles: {
+                    fontSize: 10,
+                    cellPadding: 3
+                },
+                headStyles: {
+                    fillColor: [0, 128, 64],
+                    textColor: [255, 255, 255],
+                    fontStyle: 'bold'
+                },
+                alternateRowStyles: {
+                    fillColor: [248, 249, 250]
+                },
+                tableLineColor: [220, 220, 220],
+                tableLineWidth: 0.1
+            });
+    
+            // Add export date at the bottom right corner
+            const finalY = doc.lastAutoTable.finalY || 40;
+            doc.setFontSize(9);
+            doc.setTextColor(150, 150, 150);
+            doc.text(`Exported on: ${currentDate}`, 195, finalY + 15, null, null, 'right');
+    
+            // Save the PDF
+            doc.save(`Tickets-List_${new Date().toISOString().split('T')[0]}.pdf`);
+        }
 
     return(
         <>
@@ -66,7 +135,7 @@ export default function ATicketsPage(){
                         </select>
                     </div>
                     <div className="relative right-0 flex flex-row items-center justify-between h-10">
-                        <button className="text-green-600 h-11 border shadow-md mr-2 bg-white  hover:text-white hover:bg-green-600 button_problem">
+                        <button className="text-green-600 h-11 border shadow-md mr-2 bg-white  hover:text-white hover:bg-green-600 button_problem" onClick={exportToPDF}>
                             Export
                         </button>
                     </div>

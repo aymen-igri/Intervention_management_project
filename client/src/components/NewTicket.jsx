@@ -82,10 +82,10 @@ export default function NewTicket({setNewUser}){
                     </select>
                 
                 <div className="mt-5 ml-2.5 mr-7">
-                    <button className="bg-green-600 text-white mr-2" onClick={handleAddTicket} disabled={loading}>
+                    <button className="bg-green-600 text-white mr-2 rounded-lg hover:bg-green-400 transition-colors duration-100 ease-in-out" onClick={handleAddTicket} disabled={loading}>
                         {loading ? "Adding the request" : "Add request"}
                     </button>
-                    <button className="bg-gray-500 text-white mr-2" onClick={()=>{setNewUser(false)}}>
+                    <button className="bg-gray-600 text-white mr-2 rounded-lg hover:bg-gray-400 transition-colors duration-100 ease-in-out" onClick={()=>{setNewUser(false)}}>
                         Close
                     </button>
                 </div>

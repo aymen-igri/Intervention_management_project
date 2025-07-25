@@ -16,10 +16,12 @@ export default function UsersList({data,userSearched}){
                                     && (userSearched.status === "" || userSearched.status === d.status);
      
     const statusStyle = () => {
-      if(d.status === "online") return "text-green-700 rounded-full px-3 py-1 bg-green-100 text-sm font-medium"
-      else if (d.status === "offline") return "text-red-700 rounded-full px-3 py-1 bg-red-100 text-sm font-medium"
-      else return "text-red-100 rounded-full px-3 py-1 bg-red-700 text-sm font-medium"
-    }
+          if(d.status !== "banned") return "text-green-100 rounded-full px-3 py-1 bg-green-700 text-sm font-medium"
+          else return "text-red-100 rounded-full px-3 py-1 bg-red-700 text-sm font-medium"
+        }
+
+    const status = d.status === "banned" ? "Banned" : "Active";
+
     const roleStyle = () => {
       if (d.role === "administrator") return "text-amber-700 rounded-full px-3 py-0.5 bg-amber-200 text-sm font-medium" 
       else if (d.role === "technician") return "text-green-700 rounded-full px-3 py-1 bg-green-200 text-sm font-medium"
@@ -36,7 +38,7 @@ export default function UsersList({data,userSearched}){
             <span className={roleStyle()}>{d.role}</span>
           </h2>
           <h2 className="w-32 flex justify-center">
-            <span className={statusStyle()}>{d.status}</span>
+            <span className={statusStyle()}>{status}</span>
           </h2>
         </div>
       )

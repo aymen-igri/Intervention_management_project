@@ -3,6 +3,7 @@ import user_accicon from '../../../assets/user-account.png'
 import '../../../style/dashboard.css'
 import ModifyInfoMU from '../../../components/ModifyInfoMU';
 import { useMainUser } from '../../../context/MainUser/useMainUser';
+import { Pen } from 'lucide-react';
 
 export default function TProfilePage(){
         const {user} = useMainUser();
@@ -13,8 +14,8 @@ export default function TProfilePage(){
                 <div className='z-10 absolute top-[3%] left-[7.2%] flex flex-row items-center justify-between w-[90%] dropdown'>
                     <h1 className='text-2xl text-green-600 font-bold z-10'>Dashboard</h1>
                     <div className='flex items-center justify-center'>
-                        <button className='text-green-600 border shadow-md rounded-full text-center button_problem bg-white h-13.5 flex items-center justify-center hover:text-white hover:bg-green-600' onClick={()=>{setChanges(true)}}>
-                            AI
+                        <button className='text-green-600 border rounded-full shadow-md text-center bg-white h-13.5 w-13.5 flex items-center justify-center hover:text-white hover:bg-green-600' onClick={()=>{setChanges(true)}}>
+                            <Pen color='green' />
                         </button>
                     </div>
                 </div>
