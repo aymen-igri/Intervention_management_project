@@ -4,6 +4,7 @@ import '../../../style/dashboard.css'
 import ModifyInfoMU from '../../../components/ModifyInfoMU';
 import { useMainUser } from '../../../context/MainUser/useMainUser';
 import { Pen } from 'lucide-react';
+import { format} from 'date-fns'
 
 export default function AProfilePage(){
     const {user} = useMainUser();
@@ -35,7 +36,7 @@ export default function AProfilePage(){
                     </div>
                     <div className='flex flex-col items-start mt-5'>
                         <h2 className='text-gray-500 font-medium mr-5 '>{user.email}</h2>
-                        <h2 className='text-gray-500 font-medium'>Joined at :{user.joined_at}</h2>
+                        <h2 className='text-gray-500 font-medium'>Joined at :{format(new Date(user.joined_at), 'dd-MM-yyyy')}</h2>
                     </div>
                 </div>
             </div>

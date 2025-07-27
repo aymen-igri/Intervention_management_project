@@ -3,6 +3,7 @@ import user_accicon from '../../../assets/user-account.png'
 import '../../../style/dashboard.css'
 import ModifyInfoMU from '../../../components/ModifyInfoMU';
 import { useMainUser } from '../../../context/MainUser/useMainUser';
+import { format} from 'date-fns'
 import { Pen } from 'lucide-react';
 
 export default function UProfilePage(){
@@ -35,7 +36,7 @@ export default function UProfilePage(){
                         </div>
                         <div className='flex flex-col items-start mt-5'>
                             <h2 className='text-gray-500 font-medium mr-5 '>{user.email}</h2>
-                            <h2 className='text-gray-500 font-medium'>Joined at :{user.joined_at}</h2>
+                            <h2 className='text-gray-500 font-medium'>Joined at : {format(new Date(user.joined_at), 'dd-MM-yyyy')}</h2>
                         </div>
                     </div>
                 </div>

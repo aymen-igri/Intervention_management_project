@@ -1,4 +1,4 @@
-import logo from '../assets/app logo.webp'
+import logo from '../assets/OCP_Group.svg.png'
 import '../style/ConectionAnimations.css'
 import { useState } from 'react';
 import api from '../services/api'
@@ -81,9 +81,9 @@ export default function SignIn(){
         <div className='bg-gray-100 flex flex-col items-center justify-center rounded-md w-150 p-4 shadow-xl dropdown'>
             <img 
                 src={logo} 
-                height={200} 
-                width={200} 
-                className='flex items-center justify-center'
+                height={100} 
+                width={100} 
+                className='flex items-center justify-center mb-5'
                 alt="logo" />
             {error && (
                 <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 w-full">
@@ -111,8 +111,8 @@ export default function SignIn(){
                         >
                     {loading ? "loging in ..." : "log in"}
                 </button>
-                <a className="relative text-[#24BF5B] hover:text-green-700 transition-colors duration-300 ease-in-out font-medium" href="./forgot-password">
-                    Forget your password
+                <a className="relative text-[#24BF5B] hover:text-green-700 transition-colors duration-300 ease-in-out font-medium" href="./signup">
+                    I don't have an account
                 </a>
             </div>
         </div>

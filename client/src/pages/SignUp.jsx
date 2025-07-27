@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import logo from '../assets/app logo.webp'
+import logo from '../assets/OCP_Group.svg.png'
 import '../style/ConectionAnimations.css'
 import api from '../services/api';
 import { useNavigate } from 'react-router-dom';
@@ -70,7 +70,7 @@ export default function SignUp() {
 
     return(
         <div className="flex justify-between items-center">
-            <div className='bg-gray-100  relative right-[5%] flex flex-col items-center justify-center rounded-md w-150 p-5 shadow-xl from-left'>
+            <div className='bg-gray-100  relative right-[15%] flex flex-col items-center justify-center rounded-md w-150 p-5 shadow-xl from-left'>
                 {error && (
                     <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 w-full">
                         {error}
@@ -116,11 +116,11 @@ export default function SignUp() {
                     </a>
                 </div>
             </div>
-            <div className='relative left-[5%] from-right'>
+            <div className='relative left-[10%] from-right'>
                 <img 
                 src={logo} 
-                height={350} 
-                width={350} 
+                height={200} 
+                width={200} 
                 alt="logo" />
             </div>
             
