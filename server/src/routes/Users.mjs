@@ -5,7 +5,6 @@ const router = Router();
 // all the roles
 router.patch('/updateInfo/:id',UpdateData);
 router.patch('/updateConn/:id',UpdateConn);
-
 // admin
 router.get('/getUsersAssign', GetUsersAssign);
 router.get('/getAllUsers', GetAllUsers);

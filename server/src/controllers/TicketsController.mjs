@@ -20,7 +20,8 @@ export const GetTickets = async (req,res) => {
                                             t.date_cloture_i     AS closed_at
                                             FROM tickets t
                                             JOIN utilisateurs u ON u.id_u = t.demandeur_id_i
-											LEFT JOIN utilisateurs tech ON tech.id_u = t.technicien_id_i;`);
+											LEFT JOIN utilisateurs tech ON tech.id_u = t.technicien_id_i
+                                            ORDER BY t.date_creation_i;`);
         res.status(200).json(
             rows.map(t => ({
                 id: t.id,

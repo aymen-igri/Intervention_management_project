@@ -140,7 +140,7 @@ export default function SpicificTicket({ticket,setDetails}){
                 </div>
                 <h3 className="mb-3">Title: {ticket.title}</h3>
                 <div className="flex justify-start">
-                   <h3 className="mb-3">Description: </h3> <p>{ticket.description}</p>
+                   <h3 className="mb-3">Description: </h3> <p className="text-start ml-1 mb-2">{ticket.description}</p>
                 </div>
                 <h3 className="mb-3">User: {ticket.user_name + " " + ticket.user_familyName}</h3>
                 <h3 className="mb-3">Technician: {techFullName}</h3>

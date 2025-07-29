@@ -5,11 +5,13 @@ export default function AssignToUser({data,setDesabledB,setSelectedUser}){
     const [selectedId,setSelectedId] = useState(null);
 
     const list = data.map((d)=>{
-       const isSelected = selectedId === d.id;
-       const style =
-      d.status === "active"
-        ? "text-green-700 rounded-full px-3 py-1 bg-green-100 text-sm font-medium"
-        : "text-red-700 rounded-full px-3 py-1 bg-red-100 text-sm font-medium"
+        const isSelected = selectedId === d.id;
+        const statusStyle = () => {
+          if(d.status !== "banned") return "text-green-100 rounded-full px-3 py-1 bg-green-700 text-sm font-medium"
+          else return "text-red-100 rounded-full px-3 py-1 bg-red-700 text-sm font-medium"
+        }
+
+        const status = d.status === "banned" ? "Banned" : "Active";
         const roleStyle = () => {
         if (d.role === "admin") return "text-amber-700 rounded-full px-3 py-0.5 bg-amber-200 text-sm font-medium"
         else if (d.role === "superviser") return "text-blue-700 rounded-full px-3 py-0.5 bg-blue-200 text-sm font-medium"
@@ -23,7 +25,7 @@ export default function AssignToUser({data,setDesabledB,setSelectedUser}){
                   <span className={roleStyle()}>{d.role}</span>
                 </h2>
                 <h2 className="w-32 flex justify-center">
-                  <span className={style}>{d.status}</span>
+                  <span className={statusStyle()}>{status}</span>
                 </h2>
               </div>
             )

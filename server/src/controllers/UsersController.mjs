@@ -16,7 +16,8 @@ export const GetAllUsers = async (req,res) => {
                                             r.nom_r AS role,
                                             u.statut_u AS status
                                             FROM utilisateurs u
-                                            JOIN roles r ON r.id_r = u.role_id_u;`)
+                                            JOIN roles r ON r.id_r = u.role_id_u
+                                            ORDER BY u.id_u DESC;`)
         res.status(200).json(
             rows.map(u=> ({
                 id: u.id_u,
